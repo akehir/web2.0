@@ -3,18 +3,17 @@
 <script src="jquery-1.9.1.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-	var trends;
 	$.getJSON( "./get-tweets1.1.php", function(json) {
 		console.log("success");
-		trends = json[0].trends;
+		var trends = json[0].trends;
+		var twitterHTML = "";
+		
+		for(var i = 0; i < trends.length; i++){ 
+			twitterHTML += "<div class='trends trend"+i+"'>"+ trends[i] +"</div>";
+		}
+		$("#twitter").html(twitterHTML);
 	});
 	
-	var twitterHTML = "";
-	console.log(trends);
-	for(var i = 0; i < trends.length; i++){ 
-		twitterHTML += "<div class='trends trend"+i+"'>"+ trends[i] +"</div>";
-	}
-	$("#twitter").html(twitterHTML);
  	
  	
  	
