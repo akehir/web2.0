@@ -1,41 +1,9 @@
 <html>
 <head><title>Test</title>
-<script src="jquery-1.9.1.js" type="text/javascript" />
-<script src="jquery-twitter-plugin.js" type="text/javascript" />
+<script src="jquery-1.9.1.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-
-//Test Twitter : should return OK 
-$.twitter.test(printSuccess);
-
-//Search methods
-$.twitter.search("test",printSuccess);
-$.twitter.search.user("sroucheray",printSuccess);
-$.twitter.search.repliesTo("sroucheray",printSuccess);
-$.twitter.search.mentioned("sroucheray",printSuccess);
-$.twitter.search.hashtag("35days",printSuccess);
-
-//Trends methods
-$.twitter.trends.current(printSuccess);
-$.twitter.trends.daily(printSuccess);
-$.twitter.trends.weekly(printSuccess);
-
-//Public methods
-$.twitter.statuses.publicTimeline(printSuccess);
-$.twitter.statuses.show("123", printSuccess);
-$.twitter.statuses.friends("42421507", printSuccess);
-
-//Social Graph methods 
-$.twitter.friends.ids("123", printSuccess);
-$.twitter.followers.ids("123", printSuccess);
-
-//Twitter API limitation check
-$.twitter.account.rateLimitStatus(printSuccess);
-
-function printSuccess(data, textStatus){
-//Handle data as a JSON object
-}
-
+	console.log(json_decode(file_get_contents("http://api.twitter.com/1/trends/23424975.json?exclude=hashtags", true), false));
 </script>
 </head>
 <body>
