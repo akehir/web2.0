@@ -37,7 +37,7 @@
 				}catch(err) {
         			console.log('no img');
     			}
-				feedzillaHTML += "<p><a href='"+news[i].source_url+"' target='_blank'>"+ news[i].title +"</p>";
+				feedzillaHTML += "<p><a href='"+news[i].source_url+"' target='_blank'>"+ news[i].title +"</a> ("+ news[i].source +")</p>";
 				feedzillaHTML += "</div>";
 			}
 		});
