@@ -26,16 +26,20 @@
  	function getNews(query){
  		var feedzillaHTML = "";
     	$.ajaxSetup( { "async": false } );
-		$.getJSON("http://api.feedzilla.com/v1/articles/search.json?q="+query+"&count=10&title_only=1", function(json) {
-
-			var news = json.articles;
-			for(var i = 0; i < news.length; i++){ 
-				feedzillaHTML += "<div class='news news"+i+"'>";
-				feedzillaHTML += "<img src='"+news[i].enclosures[0].uri+"' />";
-				feedzillaHTML += "<p><a href='"+news[i].source_url+"' target='_blank'>"+ news[i].title +"</p>";
-				feedzillaHTML += "</div>";
-			}
-		});
+    	try {
+			$.getJSON("http://api.feedzilla.com/v1/articles/search.json?q="+query+"&count=10&title_only=1", function(json) {
+				var news = json.articles;
+				for(var i = 0; i < news.length; i++){ 
+					feedzillaHTML += "<div class='news news"+i+"'>";
+					feedzillaHTML += "<img src='"+news[i].enclosures[0].uri+"' />";
+					feedzillaHTML += "<p><a href='"+news[i].source_url+"' target='_blank'>"+ news[i].title +"</p>";
+					feedzillaHTML += "</div>";
+				}
+			});
+		} 
+    	catch(err) {
+        	console.log('error');
+    	}
     	$.ajaxSetup( { "async": true} );
 		return feedzillaHTML;
 	}
