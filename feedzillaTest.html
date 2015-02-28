@@ -1,49 +1,27 @@
-<!-- Feedzilla Widget BEGIN -->
+<html>
+<head><title>Feedzilla</title>
+<script src="jquery-1.9.1.js" type="text/javascript"></script>
 
-<div class="feedzilla-news-widget feedzilla-019903042586520314" style="width:250px; padding: 0; text-align: center; font-size: 11px; border: 0;">
-<script type="text/javascript" src="http://widgets.feedzilla.com/news/iframe/js/widget.js"></script>
 <script type="text/javascript">
-new FEEDZILLA.Widget({
-	style: 'slide-top-to-bottom',
-	culture_code: 'en_all',
-	q: 'test',
-	title: 'test',
-	order: 'relevance',
-	count: '20',
-	w: '250',
-	h: '300',
-	timestamp: 'true',
-	scrollbar: 'false',
-	theme: 'ui-lightness',
-	className: 'feedzilla-019903042586520314'
-});
-</script><br />
-<a href="http://widgets.feedzilla.com/news/builder/index.html?utm_source=feedzilla&utm_medium=widget&utm_campaign=widget%2Blink" target="_blank">Get Your News Widget</a>
-</div>
+	$.getJSON( "http://api.feedzilla.com/v1/articles/search.json?q=Michael&count=10&title_only=1", function(json) {
+		console.log("success");
+		var news = json.articles;
+		var feedzillaHTML = "";
+		
+		for(var i = 0; i < news.length; i++){ 
+			feedzillaHTML += "<div class='news news"+i+"'>"+ news[i].title +"<br/>"+ news[i].source_url +"</div>";
+		}
+		$("#feedzilla").html(feedzillaHTML);
+	});
+	
+ 	
+ 	
+ 	
+</script>
+</head>
+<body>
+	<h1>feedzilla Test</h1>
+	<div id="feedzilla"></div>
+</body>
+</html>
 
-<!-- Feedzilla Widget END -->
-
-<!-- Feedzilla Widget BEGIN -->
-
-<div class="feedzilla-news-widget feedzilla-019903042586520314" style="width:250px; padding: 0; text-align: center; font-size: 11px; border: 0;">
-<script type="text/javascript" src="http://widgets.feedzilla.com/news/iframe/js/widget.js"></script>
-<script type="text/javascript">
-new FEEDZILLA.Widget({
-	style: 'slide-top-to-bottom',
-	culture_code: 'en_all',
-	q: 'blub',
-	title: 'blub',
-	order: 'relevance',
-	count: '20',
-	w: '250',
-	h: '300',
-	timestamp: 'true',
-	scrollbar: 'false',
-	theme: 'ui-lightness',
-	className: 'feedzilla-019903042586520314'
-});
-</script><br />
-<a href="http://widgets.feedzilla.com/news/builder/index.html?utm_source=feedzilla&utm_medium=widget&utm_campaign=widget%2Blink" target="_blank">Get Your News Widget</a>
-</div>
-
-<!-- Feedzilla Widget END -->
