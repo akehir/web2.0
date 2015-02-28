@@ -4,7 +4,7 @@
 
 <script type="text/javascript">
 	//console.log( file_get_contents("http://api.twitter.com/1/trends/1.json?exclude=hashtags", true));
-	$.getJSON( "http://api.twitter.com/1/trends/1.json?exclude=hashtags", function( json ) {
+	$.getJSON( "./get-tweets1.1.php", function( json ) {
   		console.log( "JSON Data: " + json);
  	});
 </script>
