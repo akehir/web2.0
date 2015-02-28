@@ -21,6 +21,7 @@
 	
  	function getNews(query){
  		console.log(query);
+    	$.ajaxSetup( { "async": false } );
 		return $.getJSON("http://api.feedzilla.com/v1/articles/search.json?q="+query+"&count=10&title_only=1", function(json) {
 			var feedzillaHTML = "";
 			var news = json.articles;
@@ -29,6 +30,7 @@
 			}
 			return feedzillaHTML;
 		});
+    	$.ajaxSetup( { "async": true} );
 	}
  	
  	
