@@ -9,7 +9,7 @@
 		var twitterHTML = "";
 		
 		for(var i = 0; i < trends.length; i++){ 
-			twitterHTML += "<div class='trends trend"+i+"'>"+ trends[i].name +"</div>";
+			twitterHTML += "<div class='trends trend"+i+"'>"+ trends[i].name +"<br/>"+ trends[i].url +"</div>";
 		}
 		$("#twitter").html(twitterHTML);
 	});
