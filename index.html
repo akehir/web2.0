@@ -19,6 +19,7 @@
 	});
 	
  	function getNews(query){
+ 		console.log(query);
 		var feedzillaHTML = "";
 		$.getJSON("http://api.feedzilla.com/v1/articles/search.json?q="+query+"&count=10&title_only=1", function(json) {
 			var news = json.articles;
