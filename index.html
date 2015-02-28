@@ -5,7 +5,6 @@
 <script type="text/javascript">
 	$.getJSON("./get-tweets1.1.php", function(json) {
 		var trends = json[0].trends;
-		var HTMLcontent = "";
 		var query = "";
 		var news = "";
 		
@@ -15,11 +14,7 @@
 			
 			news = getNews(query);
 			if(news != ""){
-				HTMLcontent = "";
-				HTMLcontent += "<div class='twitter hit"+i+"'><h1>"+ query +"</h1>";
-				HTMLcontent += news;
-				HTMLcontent += "</div>";
-				$("#hit"+(i+1)).html(HTMLcontent);
+				$("#hit"+(i+1)).html("<h1>"+ query +"</h1>"+ news);
 			}
 		}
 	});
@@ -31,7 +26,7 @@
 
 			var news = json.articles;
 			for(var i = 0; i < news.length; i++){ 
-				feedzillaHTML += "<div class='news news"+i+"'>";
+				feedzillaHTML += "<div class='news news"+(i+1)+"'>";
 				try{
 					feedzillaHTML += "<img src='"+news[i].enclosures[0].uri+"' />";
 				}catch(err) {
