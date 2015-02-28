@@ -3,17 +3,13 @@
 <script src="jquery-1.9.1.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-	var hashtags;
-		var items = "";
-	$.getJSON( "./get-tweets1.1.php", function(data) {
-  $.each( data, function( key, val ) {
-    items += "<div>" + key + " - " + val + "</div>";
-  });
-
+	var test;
+	$.getJSON( "./get-tweets1.1.php", function() {
+		console.log("success");
+		test = json;
 	});
 	
-	$("#test").html(items);
-	
+	console.log(test);
  	
  	
  	
@@ -21,6 +17,6 @@
 </head>
 <body>
 	<h1>Twitter Test</h1>
-	<div id="test"></div>
+	<div id="twitter-feed"></div>
 </body>
 </html>
