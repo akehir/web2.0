@@ -3,9 +3,10 @@
 <script src="jquery-1.9.1.js" type="text/javascript"></script>
 
 <script type="text/javascript">
+	var news = "";
 	$.getJSON( "http://api.feedzilla.com/v1/articles/search.json?q=Michael&count=10&title_only=1", function(json) {
 		console.log("success");
-		var news = json.articles;
+		news = json.articles;
 		var feedzillaHTML = "";
 		
 		for(var i = 0; i < news.length; i++){ 
