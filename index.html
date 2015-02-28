@@ -11,16 +11,13 @@
 		for(var i = 0; i < trends.length; i++){ 
 			query = trends[i].name;
 			HTMLcontent += "<div class='twitter hit"+i+"'><h1>"+ query +"</h1>";
-			var test = getNews(query);
-			console.log("return value "+ test);
-			HTMLcontent += test
+			HTMLcontent += getNews(query);
 			HTMLcontent += "</div>";
 		}
 		$("#content").html(HTMLcontent);
 	});
 	
  	function getNews(query){
- 		console.log(query);			
  		var feedzillaHTML = "";
     	$.ajaxSetup( { "async": false } );
 		$.getJSON("http://api.feedzilla.com/v1/articles/search.json?q="+query+"&count=10&title_only=1", function(json) {
