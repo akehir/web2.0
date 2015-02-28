@@ -15,31 +15,32 @@
 			
 			news = getNews(query);
 			if(news != ""){
+				HTMLcontent = "";
 				HTMLcontent += "<div class='twitter hit"+i+"'><h1>"+ query +"</h1>";
 				HTMLcontent += news;
 				HTMLcontent += "</div>";
+				$("#hit"+(i+1)).html(HTMLcontent);
 			}
 		}
-		$("#content").html(HTMLcontent);
 	});
 	
  	function getNews(query){
  		var feedzillaHTML = "";
     	$.ajaxSetup( { "async": false } );
-    	try {
-			$.getJSON("http://api.feedzilla.com/v1/articles/search.json?q="+query+"&count=10&title_only=1", function(json) {
-				var news = json.articles;
-				for(var i = 0; i < news.length; i++){ 
-					feedzillaHTML += "<div class='news news"+i+"'>";
+		$.getJSON("http://api.feedzilla.com/v1/articles/search.json?q="+query+"&count=10&title_only=1", function(json) {
+
+			var news = json.articles;
+			for(var i = 0; i < news.length; i++){ 
+				feedzillaHTML += "<div class='news news"+i+"'>";
+				try{
 					feedzillaHTML += "<img src='"+news[i].enclosures[0].uri+"' />";
-					feedzillaHTML += "<p><a href='"+news[i].source_url+"' target='_blank'>"+ news[i].title +"</p>";
-					feedzillaHTML += "</div>";
-				}
-			});
-		} 
-    	catch(err) {
-        	console.log('error');
-    	}
+				}catch(err) {
+        			console.log('no img');
+    			}
+				feedzillaHTML += "<p><a href='"+news[i].source_url+"' target='_blank'>"+ news[i].title +"</p>";
+				feedzillaHTML += "</div>";
+			}
+		});
     	$.ajaxSetup( { "async": true} );
 		return feedzillaHTML;
 	}
@@ -48,8 +49,18 @@
 </script>
 </head>
 <body>
-	<h1>Prototype</h1>
-	<div id="content"></div>
+	<div id="content">
+		<div id="hit1"></div>
+		<div id="hit2"></div>
+		<div id="hit3"></div>
+		<div id="hit4"></div>
+		<div id="hit5"></div>
+		<div id="hit6"></div>
+		<div id="hit7"></div>
+		<div id="hit8"></div>
+		<div id="hit9"></div>
+		<div id="hit10"></div>
+	</div>
 </body>
 </html>
 
