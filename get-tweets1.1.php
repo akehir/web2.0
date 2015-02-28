@@ -18,7 +18,8 @@ $connection = getConnectionWithAccessToken($consumerkey, $consumersecret, $acces
  
 # id = 1			word-wide
 # id = 23424957		Switzerland
-$tweets = $connection->get("https://api.twitter.com/1.1/trends/place.json?id=23424957&exclude=hashtags");
+# id = 23424977		US
+$tweets = $connection->get("https://api.twitter.com/1.1/trends/place.json?id=23424977&exclude=hashtags");
  
 echo json_encode($tweets);
 ?>
