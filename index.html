@@ -32,7 +32,7 @@
 			for(var i = 0; i < news.length; i++){ 
 				feedzillaHTML += "<div class='news news"+i+"'>";
 				feedzillaHTML += "<img src='"+news[i].uri+"' />";
-				feedzillaHTML += "<p><a href='"+news[i].source_url+"' target='_blank'>"+ news[i].title +"</p>";
+				feedzillaHTML += "<p><a href='"+news[i].enclosures.source_url+"' target='_blank'>"+ news[i].title +"</p>";
 				feedzillaHTML += "</div>";
 			}
 		});
