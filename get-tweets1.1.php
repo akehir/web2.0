@@ -16,7 +16,9 @@ function getConnectionWithAccessToken($cons_key, $cons_secret, $oauth_token, $oa
  
 $connection = getConnectionWithAccessToken($consumerkey, $consumersecret, $accesstoken, $accesstokensecret);
  
-$tweets = $connection->get("https://api.twitter.com/1.1/trends/place.json?id=23424957");
+# id = 1			word-wide
+# id = 23424957		Switzerland
+$tweets = $connection->get("https://api.twitter.com/1.1/trends/place.json?id=1");
  
 echo json_encode($tweets);
 ?>
