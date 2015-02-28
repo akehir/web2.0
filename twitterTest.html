@@ -6,7 +6,7 @@
 	//console.log( file_get_contents("http://api.twitter.com/1/trends/1.json?exclude=hashtags", true));
 	$.getJSON( "./get-tweets1.1.php", function( feeds ) {
   		
-  			console.log(feeds[trends][0].name);
+  			console.log(feeds["trends"][0].name);
             var feedHTML = '';
              
             $('#twitter-feed').html(feedHTML);
