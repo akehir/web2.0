@@ -7,12 +7,18 @@
 		var trends = json[0].trends;
 		var HTMLcontent = "";
 		var query = "";
+		var news = "";
 		
 		for(var i = 0; i < trends.length; i++){ 
+			news = "";
 			query = trends[i].name;
-			HTMLcontent += "<div class='twitter hit"+i+"'><h1>"+ query +"</h1>";
-			HTMLcontent += getNews(query);
-			HTMLcontent += "</div>";
+			
+			news = getNews(query);
+			if(news != ""){
+				HTMLcontent += "<div class='twitter hit"+i+"'><h1>"+ query +"</h1>";
+				HTMLcontent += news;
+				HTMLcontent += "</div>";
+			}
 		}
 		$("#content").html(HTMLcontent);
 	});
@@ -24,7 +30,10 @@
 
 			var news = json.articles;
 			for(var i = 0; i < news.length; i++){ 
-				feedzillaHTML += "<div class='news news"+i+"'>"+ news[i].title +"<br/>"+ news[i].source_url +"</div>";
+				feedzillaHTML += "<div class='news news"+i+"'>";
+				feedzillaHTML += "<img src='"+news[i].uri+"' />";
+				feedzillaHTML += "<p><a href='"+news[i].source_url+"' target='_blank'>"+ news[i].title +"</p>";
+				feedzillaHTML += "</div>";
 			}
 		});
     	$.ajaxSetup( { "async": true} );
