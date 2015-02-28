@@ -4,10 +4,10 @@
 
 <script type="text/javascript">
 	var hashtags;
-	$.getJSON( "./get-tweets1.1.php", function(data) {
 		var items = "";
+	$.getJSON( "./get-tweets1.1.php", function(data) {
   $.each( data, function( key, val ) {
-    items += "<div>" + key + " - " + val + "</div>" );
+    items += "<div>" + key + " - " + val + "</div>";
   });
 
 	});
