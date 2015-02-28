@@ -3,13 +3,14 @@
 <script src="jquery-1.9.1.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-	var test;
-	$.getJSON( "./get-tweets1.1.php", function(json) {
+	var hashtags;
+	$.getJSON( "./get-tweets1.1.php", function() {
 		console.log("success");
-		test = json;
+	}).done( function(data){
+		hashtags = JSON.parse(data);
+		console.log(hashtags);
 	});
 	
-	console.log(test);
  	
  	
  	
