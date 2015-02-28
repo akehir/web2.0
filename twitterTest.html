@@ -4,11 +4,8 @@
 
 <script type="text/javascript">
 	var hashtags;
-	$.getJSON( "./get-tweets1.1.php", function() {
-		console.log("success");
-	}).done( function(data){
-		hashtags = JSON.parse(data);
-		console.log(hashtags);
+	$.getJSON( "./get-tweets1.1.php", function(data,status) {
+		alert (data.trends); 
 	});
 	
  	
