@@ -51,7 +51,7 @@
 
                 news = getNews(query);
                 if(news != ""){
-                    $("#hit"+(i+1)).html("<h1>"+ query +"</h1>"+ news);
+                    $("#hit"+(i+1)).html("<div class='panel-heading'><h1>"+ query +"</h1></div><div class='panel-body'>"+ news + "</div><div class='panel-footer'></div>");
                 }
             }
         });
@@ -63,86 +63,174 @@
 
                 var news = json.articles;
                 for(var i = 0; i < news.length; i++){
+                    feedzillaHTML += "<div class='row'>";
                     feedzillaHTML += "<div class='news news"+(i+1)+"'>";
                     try{
-                        feedzillaHTML += "<img src='"+news[i].enclosures[0].uri+"' />";
+                        feedzillaHTML += "<div class='newspicture col-lg-4 col-xs-12'>";
+                        feedzillaHTML += "<img class='img-responsive' src='"+news[i].enclosures[0].uri+"' />";
+                        // make column for news entry 8, as image is 4
+                        feedzillaHTML += "</div><div class='newsentry col-lg-8 col-xs-12'>";
                     }catch(err) {
                         console.log('no img');
+                        // make col for news 12, if with news, make col for news 8
+                        feedzillaHTML += "<div class='newsentry col-lg-12 col-xs-12'>";
                     }
                     feedzillaHTML += "<p><a href='"+news[i].source_url+"' target='_blank'>"+ news[i].title +"</a></p>";
-                    feedzillaHTML += "</div>";
+                    feedzillaHTML += "</div></div>";
                 }
             });
             $.ajaxSetup( { "async": true} );
             return feedzillaHTML;
         }
-
-
     </script>
 </head>
 <body>
     <div id="wrapper">
 
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Top Twitter News</a>
+            </div>
+            <!-- /.navbar-header -->
 
-    <div id="sample-content">
-        <div id="hit4">
-            <h1>Ricky</h1>
-            <div class="news news1">
-                <p>
-                    <a href="http://rss.cnn.com/rss/money_latest.rss" target="_blank">Why this tech party isn't like 1999 (CNN)</a>
-                </p>
-            </div>
-            <div class="news news2">
-                <img src="http://images.onset.freedom.com/ocregister/thumb/njql25-b88334702z.120150213164921000gt780ksv.10.jpg">
-                <p>
-                    <a href="http://www.ocregister.com/common/rss/rss.php?catID=18938" target="_blank">Family of teen swept away from Laguna Beach thanks community for support (ocregister)</a>
-                </p>
-            </div>
-            <div class="news news3">
-                <p>
-                    <a href="http://www.cosmopolitan.com/rss/all.xml" target="_blank">Ricky Martin on What He'd Do If His Sons Were Gay: "Bring It On" (Cosmopolitan)</a>
-                </p>
-            </div>
-            <div class="news news4"><p><a href="http://www.startribune.com/rss/?sf=1&amp;s=/" target="_blank">Pekovic carries Rubio-less Wolves past Pistons (Minneapolis Star Tribune)</a>
-                </p>
-            </div>
-            <div class="news news5"><p><a href="http://www.abqjournal.com/abqnews/index.php?format=feed&amp;type=rss" target="_blank">Zero turnout in school election; officials weigh next move (Albuquerque Journal)</a>
-                </p>
-            </div>
-            <div class="news news6">
-                <p>
-                    <a href="http://rss.nytimes.com/services/xml/rss/nyt/Arts.xml" target="_blank">At 50, Slick Rick, a Hip-Hop Pioneer, Still Has Stories to Tell (NY Times)</a>
-                </p></div><div class="news news7"><p><a href="http://www.nfl.com/rss/rsslanding?searchString=team&amp;abbr=IND" target="_blank">Ricky Jean Francois to visit Redskins, 49ers (NFL)</a>
-                </p>
-            </div>
-            <div class="news news8">
-                <img src="http://i.huffpost.com/gen/2591198/thumbs/s-RICKY-MARTIN-mini.jpg">
-                <p>
-                    <a href="http://www.popeater.com/rss.xml" target="_blank">Ricky Martin Explains Why He's Raising His Children On The Road (aolmusicnewsblog)</a>
-                </p>
-            </div>
-            <div class="news news9">
-                <p>
-                    <a href="http://feeds.feedburner.com/mashable" target="_blank">Kanye West and the terrible, horrible, no good, very bad Super Bowl (mashable)</a>
-                </p>
-            </div>
-        </div>
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="index.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
 
-    </div>
-        <div id="content">
-            <div id="hit1"></div>
-            <div id="hit2"></div>
-            <div id="hit3"></div>
-            <div id="hit4"></div>
-            <div id="hit5"></div>
-            <div id="hit6"></div>
-            <div id="hit7"></div>
-            <div id="hit8"></div>
-            <div id="hit9"></div>
-            <div id="hit10"></div>
-        </div>
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                            </div>
+                            <!-- /input-group -->
+                        </li>
+                        <li>
+                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
 
-    </div>
+        <div id="page-wrapper" style="min-height: 1337px;">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Top Twitter News Stories</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+
+            <!--
+            <div id="sample-content" class="row">
+                <div class="col-lg-4 col-md-12 ">
+                <div id="hitsample" class="panel panel-primary ">
+
+                    <div class="panel-heading"><h1>Ricky</h1></div>
+                    <div class="panel-body">
+
+
+
+                        <div class="row">
+                            <div class="news news1sample">
+                                <div class="newsentry col-lg-12 col-md-12">
+                                    <p>
+                                        <a href="http://rss.cnn.com/rss/money_latest.rss" target="_blank">Why this tech party isn't like 1999 (CNN)</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="news news2sample">
+                                <div class="newspicture col-lg-4 col-md-12">
+                                    <img class="img-responsive " src="../assets/tmp.jpg">
+                                </div>
+                                <div class="newsentry col-lg-8 col-md-12">
+                                    <p>
+                                        <a href="http://www.ocregister.com/common/rss/rss.php?catID=18938" target="_blank">Family of teen swept away from Laguna Beach thanks community for support (ocregister)</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+
+                    </div>
+                </div>
+            </div>
+            --><!-- /#sample content -->
+
+
+            <div id="content" class="row">
+                <div class="col-lg-4 col-md-12 ">
+                    <div id="hit1" class="panel panel-primary"></div>
+                </div>
+                <div class="col-lg-4 col-md-12 ">
+                    <div id="hit2" class="panel panel-primary"></div>
+                </div>
+                <div class="col-lg-4 col-md-12 ">
+                    <div id="hit3" class="panel panel-primary"></div>
+                </div>
+                <div class="col-lg-4 col-md-12 ">
+                    <div id="hit4" class="panel panel-primary"></div>
+                </div>
+                <div class="col-lg-4 col-md-12 ">
+                    <div id="hit5" class="panel panel-primary"></div>
+                </div>
+                <div class="col-lg-4 col-md-12 ">
+                    <div id="hit6" class="panel panel-primary"></div>
+                </div>
+                <div class="col-lg-4 col-md-12 ">
+                    <div id="hit7" class="panel panel-primary"></div>
+                </div>
+                <div class="col-lg-4 col-md-12 ">
+                    <div id="hit8" class="panel panel-primary"></div>
+                </div>
+                <div class="col-lg-4 col-md-12 ">
+                    <div id="hit9" class="panel panel-primary"></div>
+                </div>
+                <div class="col-lg-4 col-md-12 ">
+                    <div id="hit10" class="panel panel-primary"></div>
+                </div>
+            </div><!-- /#content -->
+
+
+
+        </div><!-- /#page-wrapper -->
+    </div><!-- /#wrapper -->
 </body>
 </html>
 
