@@ -1,61 +1,148 @@
 <html>
-<head><title>Test</title>
-<script src="jquery-1.9.1.js" type="text/javascript"></script>
+<head>
 
-<script type="text/javascript">
-	$.getJSON("./get-tweets1.1.php", function(json) {
-		var trends = json[0].trends;
-		var query = "";
-		var news = "";
-		
-		for(var i = 0; i < trends.length; i++){ 
-			news = "";
-			query = trends[i].name;
-			
-			news = getNews(query);
-			if(news != ""){
-				$("#hit"+(i+1)).html("<h1>"+ query +"</h1>"+ news);
-			}
-		}
-	});
-	
- 	function getNews(query){
- 		var feedzillaHTML = "";
-    	$.ajaxSetup( { "async": false } );
-		$.getJSON("http://api.feedzilla.com/v1/articles/search.json?q="+query+"&count=10&title_only=1", function(json) {
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A mashup site using top twitter trends to filter and deliver the top 10 latest US news in a simple format.">
+    <meta name="author" content="Raphael Stöcklin <raphael.st@gmx.ch>; Katrin Affolter <katrin.affolter@uzh.ch>; Sven Brunner <svenbrunner5@hotmail.com>; Raphael Ochsenbein <raphael@akehir.com>; Sacha Uhlmann <sacha.uhlmann@uzh.ch;">
 
-			var news = json.articles;
-			for(var i = 0; i < news.length; i++){ 
-				feedzillaHTML += "<div class='news news"+(i+1)+"'>";
-				try{
-					feedzillaHTML += "<img src='"+news[i].enclosures[0].uri+"' />";
-				}catch(err) {
-        			console.log('no img');
-    			}
-				feedzillaHTML += "<p><a href='"+news[i].source_url+"' target='_blank'>"+ news[i].title +"</a></p>";
-				feedzillaHTML += "</div>";
-			}
-		});
-    	$.ajaxSetup( { "async": true} );
-		return feedzillaHTML;
-	}
- 	
- 	
-</script>
+    <title>Top Twitter && News (Web 2.0 - Project)</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link href="../assets/timeline.css" rel="stylesheet">
+
+    <!-- Template CSS -->
+    <link href="../assets/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../assets/web2.0.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="../bower_components/morrisjs/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="jquery-1.9.1.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $.getJSON("./get-tweets1.1.php", function(json) {
+            var trends = json[0].trends;
+            var query = "";
+            var news = "";
+
+            for(var i = 0; i < trends.length; i++){
+                news = "";
+                query = trends[i].name;
+
+                news = getNews(query);
+                if(news != ""){
+                    $("#hit"+(i+1)).html("<h1>"+ query +"</h1>"+ news);
+                }
+            }
+        });
+
+        function getNews(query){
+            var feedzillaHTML = "";
+            $.ajaxSetup( { "async": false } );
+            $.getJSON("http://api.feedzilla.com/v1/articles/search.json?q="+query+"&count=10&title_only=1", function(json) {
+
+                var news = json.articles;
+                for(var i = 0; i < news.length; i++){
+                    feedzillaHTML += "<div class='news news"+(i+1)+"'>";
+                    try{
+                        feedzillaHTML += "<img src='"+news[i].enclosures[0].uri+"' />";
+                    }catch(err) {
+                        console.log('no img');
+                    }
+                    feedzillaHTML += "<p><a href='"+news[i].source_url+"' target='_blank'>"+ news[i].title +"</a></p>";
+                    feedzillaHTML += "</div>";
+                }
+            });
+            $.ajaxSetup( { "async": true} );
+            return feedzillaHTML;
+        }
+
+
+    </script>
 </head>
 <body>
-	<div id="content">
-		<div id="hit1"></div>
-		<div id="hit2"></div>
-		<div id="hit3"></div>
-		<div id="hit4"></div>
-		<div id="hit5"></div>
-		<div id="hit6"></div>
-		<div id="hit7"></div>
-		<div id="hit8"></div>
-		<div id="hit9"></div>
-		<div id="hit10"></div>
-	</div>
+    <div id="wrapper">
+
+
+    <div id="sample-content">
+        <div id="hit4">
+            <h1>Ricky</h1>
+            <div class="news news1">
+                <p>
+                    <a href="http://rss.cnn.com/rss/money_latest.rss" target="_blank">Why this tech party isn't like 1999 (CNN)</a>
+                </p>
+            </div>
+            <div class="news news2">
+                <img src="http://images.onset.freedom.com/ocregister/thumb/njql25-b88334702z.120150213164921000gt780ksv.10.jpg">
+                <p>
+                    <a href="http://www.ocregister.com/common/rss/rss.php?catID=18938" target="_blank">Family of teen swept away from Laguna Beach thanks community for support (ocregister)</a>
+                </p>
+            </div>
+            <div class="news news3">
+                <p>
+                    <a href="http://www.cosmopolitan.com/rss/all.xml" target="_blank">Ricky Martin on What He'd Do If His Sons Were Gay: "Bring It On" (Cosmopolitan)</a>
+                </p>
+            </div>
+            <div class="news news4"><p><a href="http://www.startribune.com/rss/?sf=1&amp;s=/" target="_blank">Pekovic carries Rubio-less Wolves past Pistons (Minneapolis Star Tribune)</a>
+                </p>
+            </div>
+            <div class="news news5"><p><a href="http://www.abqjournal.com/abqnews/index.php?format=feed&amp;type=rss" target="_blank">Zero turnout in school election; officials weigh next move (Albuquerque Journal)</a>
+                </p>
+            </div>
+            <div class="news news6">
+                <p>
+                    <a href="http://rss.nytimes.com/services/xml/rss/nyt/Arts.xml" target="_blank">At 50, Slick Rick, a Hip-Hop Pioneer, Still Has Stories to Tell (NY Times)</a>
+                </p></div><div class="news news7"><p><a href="http://www.nfl.com/rss/rsslanding?searchString=team&amp;abbr=IND" target="_blank">Ricky Jean Francois to visit Redskins, 49ers (NFL)</a>
+                </p>
+            </div>
+            <div class="news news8">
+                <img src="http://i.huffpost.com/gen/2591198/thumbs/s-RICKY-MARTIN-mini.jpg">
+                <p>
+                    <a href="http://www.popeater.com/rss.xml" target="_blank">Ricky Martin Explains Why He's Raising His Children On The Road (aolmusicnewsblog)</a>
+                </p>
+            </div>
+            <div class="news news9">
+                <p>
+                    <a href="http://feeds.feedburner.com/mashable" target="_blank">Kanye West and the terrible, horrible, no good, very bad Super Bowl (mashable)</a>
+                </p>
+            </div>
+        </div>
+
+    </div>
+        <div id="content">
+            <div id="hit1"></div>
+            <div id="hit2"></div>
+            <div id="hit3"></div>
+            <div id="hit4"></div>
+            <div id="hit5"></div>
+            <div id="hit6"></div>
+            <div id="hit7"></div>
+            <div id="hit8"></div>
+            <div id="hit9"></div>
+            <div id="hit10"></div>
+        </div>
+
+    </div>
 </body>
 </html>
 
