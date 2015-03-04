@@ -52,7 +52,7 @@
                 news = getNews(query);
                 if(news != ""){
                     $("#hit"+(i+1)).html("<div class='panel-heading'><h1>"+ query +"</h1></div><div class='panel-body'>"+ news + "</div><div class='panel-footer'></div>");
-                    $("#hit"+(i+1)).removeClass("empty-news");
+                    $("#container"+(i+1)).removeClass("empty-news");
                 }
             }
         });
@@ -76,7 +76,7 @@
                         feedzillaHTML += "<div class='newsentry col-lg-12 col-xs-12'>";
                     }
                     feedzillaHTML += "<p><a href='"+news[i].source_url+"' target='_blank'>"+ news[i].title +"</a></p>";
-                    feedzillaHTML += "</div></div>";
+                    feedzillaHTML += "</div></div></div>";
                 }
             });
             $.ajaxSetup( { "async": true} );
@@ -153,77 +153,39 @@
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
-
-            <!--
-            <div id="sample-content" class="row">
-                <div class="col-lg-4 col-md-12 ">
-                <div id="hitsample" class="panel panel-primary ">
-
-                    <div class="panel-heading"><h1>Ricky</h1></div>
-                    <div class="panel-body">
-
-
-
-                        <div class="row">
-                            <div class="news news1sample">
-                                <div class="newsentry col-lg-12 col-md-12">
-                                    <p>
-                                        <a href="http://rss.cnn.com/rss/money_latest.rss" target="_blank">Why this tech party isn't like 1999 (CNN)</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="news news2sample">
-                                <div class="newspicture col-lg-4 col-md-12">
-                                    <img class="img-responsive " src="../assets/tmp.jpg">
-                                </div>
-                                <div class="newsentry col-lg-8 col-md-12">
-                                    <p>
-                                        <a href="http://www.ocregister.com/common/rss/rss.php?catID=18938" target="_blank">Family of teen swept away from Laguna Beach thanks community for support (ocregister)</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel-footer">
-
-                    </div>
-                </div>
-            </div>
-            --><!-- /#sample content -->
+            
 
 
             <div id="content" class="row">
-                <div class="col-lg-4 col-xs-12 ">
-                    <div id="hit1" class="panel panel-primary empty-news"></div>
+                <div id="container1" class="col-lg-4 col-xs-12 empty-news">
+                    <div id="hit1" class="panel panel-primary"></div>
                 </div>
-                <div class="col-lg-4 col-xs-12 ">
-                    <div id="hit2" class="panel panel-primary empty-news"></div>
+                <div id="container2" class="col-lg-4 col-xs-12 empty-news">
+                    <div id="hit2" class="panel panel-primary"></div>
                 </div>
-                <div class="col-lg-4 col-xs-12 ">
-                    <div id="hit3" class="panel panel-primary empty-news"></div>
+                <div id="container3" class="col-lg-4 col-xs-12 empty-news">
+                    <div id="hit3" class="panel panel-primary"></div>
                 </div>
-                <div class="col-lg-4 col-xs-12 ">
-                    <div id="hit4" class="panel panel-primary empty-news"></div>
+                <div id="container4" class="col-lg-4 col-xs-12 empty-news">
+                    <div id="hit4" class="panel panel-primary"></div>
                 </div>
-                <div class="col-lg-4 col-xs-12 ">
-                    <div id="hit5" class="panel panel-primary empty-news"></div>
+                <div id="container5" class="col-lg-4 col-xs-12 empty-news">
+                    <div id="hit5" class="panel panel-primary"></div>
                 </div>
-                <div class="col-lg-4 col-xs-12 ">
-                    <div id="hit6" class="panel panel-primary empty-news"></div>
+                <div id="container6" class="col-lg-4 col-xs-12 empty-news">
+                    <div id="hit6" class="panel panel-primary"></div>
                 </div>
-                <div class="col-lg-4 col-xs-12 ">
-                    <div id="hit7" class="panel panel-primary empty-news"></div>
+                <div id="container7" class="col-lg-4 col-xs-12 empty-news">
+                    <div id="hit7" class="panel panel-primary"></div>
                 </div>
-                <div class="col-lg-4 col-xs-12 ">
-                    <div id="hit8" class="panel panel-primary empty-news"></div>
+                <div id="container8" class="col-lg-4 col-xs-12 empty-news">
+                    <div id="hit8" class="panel panel-primary"></div>
                 </div>
-                <div class="col-lg-4 col-xs-12 ">
-                    <div id="hit9" class="panel panel-primary empty-news"></div>
+                <div id="container9" class="col-lg-4 col-xs-12 empty-news">
+                    <div id="hit9" class="panel panel-primary"></div>
                 </div>
-                <div class="col-lg-4 col-xs-12 ">
-                    <div id="hit10" class="panel panel-primary empty-news"></div>
+                <div id="container10" class="col-lg-4 col-xs-12 empty-news">
+                    <div id="hit10" class="panel panel-primary"></div>
                 </div>
             </div><!-- /#content -->
 
