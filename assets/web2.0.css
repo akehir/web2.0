@@ -8,3 +8,7 @@
  * Sacha Uhlmann <sacha.uhlmann@uzh.ch;
  *
  */
+
+.empty-news {
+    display: none;
+}

@@ -1,0 +1,259 @@
+
+<!-- saved from url=(0042)http://kitt.cl.uzh.ch/kitt/visling/web2.0/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A mashup site using top twitter trends to filter and deliver the top 10 latest US news in a simple format.">
+    <meta name="author" content="Raphael Stöcklin &lt;raphael.st@gmx.ch&gt;; Katrin Affolter &lt;katrin.affolter@uzh.ch&gt;; Sven Brunner &lt;svenbrunner5@hotmail.com&gt;; Raphael Ochsenbein &lt;raphael@akehir.com&gt;; Sacha Uhlmann &lt;sacha.uhlmann@uzh.ch;">
+
+    <title>Top Twitter &amp;&amp; News (Web 2.0 - Project)</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="http://kitt.cl.uzh.ch/kitt/visling/web2.0/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="http://kitt.cl.uzh.ch/kitt/visling/web2.0/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link href="http://kitt.cl.uzh.ch/kitt/visling/web2.0/assets/timeline.css" rel="stylesheet">
+
+    <!-- Template CSS -->
+    <link href="http://kitt.cl.uzh.ch/kitt/visling/web2.0/assets/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="http://kitt.cl.uzh.ch/kitt/visling/web2.0/assets/web2.0.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="http://kitt.cl.uzh.ch/kitt/visling/web2.0/bower_components/morrisjs/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="assets/static-images/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="assets/static-images/jquery-1.9.1.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $.getJSON("./get-tweets1.1.php", function(json) {
+            var trends = json[0].trends;
+            var query = "";
+            var news = "";
+
+            for(var i = 0; i < trends.length; i++){
+                news = "";
+                query = trends[i].name;
+
+                news = getNews(query);
+                if(news != ""){
+                    $("#hit"+(i+1)).html("<div class='panel-heading'><h1>"+ query +"</h1></div><div class='panel-body'>"+ news + "</div><div class='panel-footer'></div>");
+                }
+            }
+        });
+
+        function getNews(query){
+            var feedzillaHTML = "";
+            $.ajaxSetup( { "async": false } );
+            $.getJSON("http://api.feedzilla.com/v1/articles/search.json?q="+query+"&count=10&title_only=1", function(json) {
+
+                var news = json.articles;
+                for(var i = 0; i < news.length; i++){
+                    feedzillaHTML += "<div class='row'>";
+                    feedzillaHTML += "<div class='news news"+(i+1)+"'>";
+                    try{
+                        feedzillaHTML += "<div class='newspicture col-lg-4 col-xs-12'>";
+                        feedzillaHTML += "<img class='img-responsive' src='"+news[i].enclosures[0].uri+"' />";
+                        // make column for news entry 8, as image is 4
+                        feedzillaHTML += "</div><div class='newsentry col-lg-8 col-xs-12'>";
+                    }catch(err) {
+                        console.log('no img');
+                        // make col for news 12, if with news, make col for news 8
+                        feedzillaHTML += "<div class='newsentry col-lg-12 col-xs-12'>";
+                    }
+                    feedzillaHTML += "<p><a href='"+news[i].source_url+"' target='_blank'>"+ news[i].title +"</a></p>";
+                    feedzillaHTML += "</div></div>";
+                }
+            });
+            $.ajaxSetup( { "async": true} );
+            return feedzillaHTML;
+        }
+    </script>
+</head>
+<body data-feedly-mini="yes">
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://kitt.cl.uzh.ch/kitt/visling/web2.0/index.html">Top Twitter News</a>
+        </div>
+        <!-- /.navbar-header -->
+
+        <ul class="nav navbar-top-links navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="http://kitt.cl.uzh.ch/kitt/visling/web2.0/#">
+                    <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a href="http://kitt.cl.uzh.ch/kitt/visling/web2.0/#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    </li>
+                    <li><a href="http://kitt.cl.uzh.ch/kitt/visling/web2.0/#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li><a href="http://kitt.cl.uzh.ch/kitt/visling/web2.0/index.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    </li>
+                </ul>
+                <!-- /.dropdown-user -->
+            </li>
+            <!-- /.dropdown -->
+        </ul>
+        <!-- /.navbar-top-links -->
+
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li class="sidebar-search">
+                        <div class="input-group custom-search-form">
+                            <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                        <!-- /input-group -->
+                    </li>
+                    <li>
+                        <a href="http://kitt.cl.uzh.ch/kitt/visling/web2.0/index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.navbar-static-side -->
+    </nav>
+
+    <div id="page-wrapper" style="min-height: 1337px;">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Top Twitter News Stories</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+
+        <!--
+        <div id="sample-content" class="row">
+            <div class="col-lg-4 col-md-12 ">
+            <div id="hitsample" class="panel panel-primary ">
+
+                <div class="panel-heading"><h1>Ricky</h1></div>
+                <div class="panel-body">
+
+
+
+                    <div class="row">
+                        <div class="news news1sample">
+                            <div class="newsentry col-lg-12 col-md-12">
+                                <p>
+                                    <a href="http://rss.cnn.com/rss/money_latest.rss" target="_blank">Why this tech party isn't like 1999 (CNN)</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="news news2sample">
+                            <div class="newspicture col-lg-4 col-md-12">
+                                <img class="img-responsive " src="../assets/tmp.jpg">
+                            </div>
+                            <div class="newsentry col-lg-8 col-md-12">
+                                <p>
+                                    <a href="http://www.ocregister.com/common/rss/rss.php?catID=18938" target="_blank">Family of teen swept away from Laguna Beach thanks community for support (ocregister)</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+
+                </div>
+            </div>
+        </div>
+        --><!-- /#sample content -->
+
+
+        <div id="content" class="row">
+            <div class="col-lg-4 col-md-12 ">
+                <div id="hit1" class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h1>Andre Johnson</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="news news1">
+                                <div class="newspicture col-lg-4 col-xs-12">
+                                    <div class="newsentry col-lg-12 col-xs-12">
+                                        <p><a href="http://feeds.feedburner.com/stereogum/cBYa" target="_blank">Grammys 2015: Winners List (stereogum)</a></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="news news2">
+                                        <div class="newspicture col-lg-4 col-xs-12">
+                                            <div class="newsentry col-lg-12 col-xs-12">
+                                                <p><a href="http://feeds.feedburner.com/Sfsignal" target="_blank">FINALISTS: 2014 Nebula Awards (with Free Fiction Links!) (SF Signal)</a></p>
+                                            </div>
+                                        </div>
+                                        <div class="row"><div class="news news3"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://miami.cbslocal.com/feed/" target="_blank">Dwork On Sports: 2015 Miami Marlins Spring Training Primer (CBS 4 Florida)</a></p></div></div><div class="row"><div class="news news4"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://abc13.com/feed/" target="_blank">Andre Johnson wants off Texans (KTRK)</a></p></div></div><div class="row"><div class="news news5"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://www.washingtontimes.com/rss/headlines/sports/ncaa/" target="_blank">Johnson with 21, Winthrop beats Presbyterian 80-53 (Washington Times)</a></p></div></div><div class="row"><div class="news news6"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://abc13.com/feed/" target="_blank">Andre Johnson given permission to seek trade (KTRK)</a></p></div></div><div class="row"><div class="news news7"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://sports.espn.go.com/espn/rss/nfl/news" target="_blank">Sources: Texans let WR Johnson seek trade (ESPN)</a></p></div></div><div class="row"><div class="news news8"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://feeds.washingtonpost.com/rss/sports" target="_blank">One way or another, it appears Andre Johnson won’t be back with Texans (Washington Post)</a></p></div></div><div class="row"><div class="news news9"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://www.cbssports.com/partners/feeds/rss/home_news" target="_blank">Report: Texans' Andre Johnson can seek trade (CBS News)</a></p></div></div></div><div class="panel-footer">
+
+                                    </div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div>
+            </div>
+            <div class="col-lg-4 col-md-12 ">
+                <div id="hit2" class="panel panel-primary"><div class="panel-heading"><h1>IHOP</h1></div><div class="panel-body"><div class="row"><div class="news news1"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://rss.cnn.com/fortunemanagement" target="_blank">These are the worst #TheDress tweets from your favorite brands (Money)</a></p></div></div><div class="row"><div class="news news2"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://online.wsj.com/xml/rss/3_7088.xml" target="_blank">DineEquity’s Sales Growth Boosted by IHOP (Wall Street Journal)</a></p></div></div><div class="row"><div class="news news3"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://feeds.eonline.com/eonline/topstories" target="_blank">Will John Legend and Chrissy Teigen Eat at IHOP After the Oscars? "We Don't Mind Getting Fast Food" (eonline)</a></p></div></div><div class="row"><div class="news news4"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://feeds2.feedburner.com/yumsugar?format=xml" target="_blank">How to Make a Ramen Pot Pie (yumsugar?format=xml)</a></p></div></div><div class="row"><div class="news news5"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://miami.cbslocal.com/feed/" target="_blank">Hungry For Hotcakes? IHOP To Stack ‘Em Up For Charity (CBS 4 Florida)</a></p></div></div><div class="row"><div class="news news6"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://feeds.washingtonpost.com/rss/business" target="_blank">Why IHOP and Denny’s are leading a roadside diner revival (Washington Post)</a></p></div></div><div class="row"><div class="news news7"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://abc13.com/feed/" target="_blank">National Pancake Day raises money for Children's Hospitals (KTRK)</a></p></div></div></div><div class="panel-footer"></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div>
+            </div>
+            <div class="col-lg-4 col-md-12 ">
+                <div id="hit3" class="panel panel-primary"><div class="panel-heading"><h1>Hillary</h1></div><div class="panel-body"><div class="row"><div class="news news1"><div class="newspicture col-lg-4 col-xs-12"><img class="img-responsive" src="assets/static-images/s-OBAMA2007ANNOUNCEMENT_ORIGINAL-154x114.jpg"></div><div class="newsentry col-lg-8 col-xs-12"><p><a href="http://www.huffingtonpost.com/news/barack-obama/feed/" target="_blank">On This Day In 2007, Obama Made A Move That Would Change History (Huffington Post)</a></p></div></div><div class="row"><div class="news news2"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://feeds2.feedburner.com/timeblogs/nerd_world" target="_blank">FCC Votes ‘Yes’ On Strongest Net Neutrality Rules (timeblogs)</a></p></div></div><div class="row"><div class="news news3"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://www.washingtontimes.com/rss/headlines/news/editor-favorites/" target="_blank">Hillary Clinton, as senator, paid women 72 cents on every dollar paid to men: report (Washington Times)</a></p></div></div><div class="row"><div class="news news4"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://www.washingtontimes.com/rss/headlines/news/politics/" target="_blank">Inside the Beltway: Scott Taylor, former Navy Sniper, slams Obama, Hillary Clinton (Washington Times)</a></p></div></div><div class="row"><div class="news news5"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://www.philly.com/philly_news.rss" target="_blank">Hillary leads Christie in early Pa. 2016 poll (The Philadelphia Inquirer)</a></p></div></div><div class="row"><div class="news news6"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://www.washingtontimes.com/rss/headlines/news/national/" target="_blank">Hillary Clinton's war on Libya lost terror intelligence (Washington Times)</a></p></div></div><div class="row"><div class="news news7"><div class="newspicture col-lg-4 col-xs-12"><img class="img-responsive" src="assets/static-images/1423822513400.cached.jpg"></div><div class="newsentry col-lg-8 col-xs-12"><p><a href="http://feeds.feedburner.com/thedailybeast/articles" target="_blank">Between Hillary and a Hard Place (The Daily Beast)</a></p></div></div><div class="row"><div class="news news8"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://www.washingtontimes.com/rss/headlines/news/politics/" target="_blank">Carly Fiorina at CPAC: 'Mrs. Clinton, please name an accomplishment' (Washington Times)</a></p></div></div><div class="row"><div class="news news9"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://feeds.sun-sentinel.com/sun-sentinel/news/education" target="_blank">Hillary Clinton is favorite of Florida Democrats (sun-sentinel)</a></p></div></div></div><div class="panel-footer"></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div>
+            </div>
+            <div class="col-lg-4 col-md-12 ">
+                <div id="hit4" class="panel panel-primary"></div>
+            </div>
+            <div class="col-lg-4 col-md-12 ">
+                <div id="hit5" class="panel panel-primary"><div class="panel-heading"><h1>Iran</h1></div><div class="panel-body"><div class="row"><div class="news news1"><div class="newspicture col-lg-4 col-xs-12"><img class="img-responsive" src="assets/static-images/s-BARACK-OBAMA-154x114.jpg"></div><div class="newsentry col-lg-8 col-xs-12"><p><a href="http://www.huffingtonpost.com/news/barack-obama/feed/" target="_blank">Obama: Rift Over Netanyahu Speech Not 'Permanently Destructive' To U.S.-Israeli Ties (Huffington Post)</a></p></div></div><div class="row"><div class="news news2"><div class="newspicture col-lg-4 col-xs-12"><img class="img-responsive" src="assets/static-images/1425291310214.cached.jpg"></div><div class="newsentry col-lg-8 col-xs-12"><p><a href="http://feeds.feedburner.com/thedailybeast/articles" target="_blank">The Catastrophe Bibi Is Courting (The Daily Beast)</a></p></div></div><div class="row"><div class="news news3"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://www.thecommentator.com/main/rss" target="_blank">PROFILE: Becoming the president of Iran (The commentator)</a></p></div></div><div class="row"><div class="news news4"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://www.washingtontimes.com/rss/headlines/news/politics/" target="_blank">Report: Obama threatened to shoot down Israeli warplanes (Washington Times)</a></p></div></div><div class="row"><div class="news news5"><div class="newspicture col-lg-4 col-xs-12"><img class="img-responsive" src="assets/static-images/1424994863257.cached.jpg"></div><div class="newsentry col-lg-8 col-xs-12"><p><a href="http://feeds.feedburner.com/thedailybeast/articles" target="_blank">Education is a Crime for Baha'is in Iran (The Daily Beast)</a></p></div></div><div class="row"><div class="news news6"><div class="newspicture col-lg-4 col-xs-12"><img class="img-responsive" src="assets/static-images/s-NETANYAHU-154x114.jpg"></div><div class="newsentry col-lg-8 col-xs-12"><p><a href="http://www.huffingtonpost.com/news/barack-obama/feed/" target="_blank">Ryan Costello:  Netanyahu's Dangerous Iran Push (Huffington Post)</a></p></div></div><div class="row"><div class="news news7"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://www.washingtontimes.com/rss/headlines/news/politics/" target="_blank">Benjamin Netanyahu to speak on Iran before Congress, while John Kerry sorts out nuke deal overseas (Washington Times)</a></p></div></div><div class="row"><div class="news news8"><div class="newspicture col-lg-4 col-xs-12"><img class="img-responsive" src="assets/static-images/1423651067116.cached.jpg"></div><div class="newsentry col-lg-8 col-xs-12"><p><a href="http://feeds.feedburner.com/thedailybeast/articles" target="_blank">Iran Is Ready to Take Over Iraq’s Troops (The Daily Beast)</a></p></div></div><div class="row"><div class="news news9"><div class="newspicture col-lg-4 col-xs-12"><img class="img-responsive" src="assets/static-images/s-BENJAMIN-NETANYAHU-154x114.jpg"></div><div class="newsentry col-lg-8 col-xs-12"><p><a href="http://www.huffingtonpost.com/news/barack-obama/feed/" target="_blank">James Zogby:  Netanyahu's Legacy: A Fractured Israel and a Divided America (Huffington Post)</a></p></div></div><div class="row"><div class="news news10"><div class="newspicture col-lg-4 col-xs-12"><img class="img-responsive" src="assets/static-images/1424605516156.cached.jpg"></div><div class="newsentry col-lg-8 col-xs-12"><p><a href="http://feeds.feedburner.com/thedailybeast/articles" target="_blank">Iran’s Cold Cases (The Daily Beast)</a></p></div></div></div><div class="panel-footer"></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div>
+            </div>
+            <div class="col-lg-4 col-md-12 ">
+                <div id="hit6" class="panel panel-primary"><div class="panel-heading"><h1>Israel</h1></div><div class="panel-body"><div class="row"><div class="news news1"><div class="newspicture col-lg-4 col-xs-12"><img class="img-responsive" src="assets/static-images/s-US_UK_CA-154x114.jpg"></div><div class="newsentry col-lg-8 col-xs-12"><p><a href="http://www.huffingtonpost.com/news/barack-obama/feed/" target="_blank">Rep. Luis Gutierrez:  Why I Won't Be At Israeli PM's Speech (Huffington Post)</a></p></div></div><div class="row"><div class="news news2"><div class="newspicture col-lg-4 col-xs-12"><img class="img-responsive" src="assets/static-images/s-US_UK_CA-154x114.jpg"></div><div class="newsentry col-lg-8 col-xs-12"><p><a href="http://www.huffingtonpost.com/news/barack-obama/feed/" target="_blank">Jeanne Zaino:  Almost Half of Israelis and Americans Agree: Netanyhu Should Not Speak to Congress (Huffington Post)</a></p></div></div><div class="row"><div class="news news3"><div class="newspicture col-lg-4 col-xs-12"><img class="img-responsive" src="assets/static-images/1425291310214.cached.jpg"></div><div class="newsentry col-lg-8 col-xs-12"><p><a href="http://feeds.feedburner.com/thedailybeast/articles" target="_blank">The Catastrophe Bibi Is Courting (The Daily Beast)</a></p></div></div><div class="row"><div class="news news4"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://www.washingtontimes.com/rss/headlines/news/politics/" target="_blank">Report: Obama threatened to shoot down Israeli warplanes (Washington Times)</a></p></div></div><div class="row"><div class="news news5"><div class="newspicture col-lg-4 col-xs-12"><img class="img-responsive" src="assets/static-images/1424480239801.cached.jpg"></div><div class="newsentry col-lg-8 col-xs-12"><p><a href="http://feeds.feedburner.com/thedailybeast/articles" target="_blank">Taylor Swift, Queen of the Zionists? (The Daily Beast)</a></p></div></div><div class="row"><div class="news news6"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://feeds.feedburner.com/orlandosentinel/sports/college" target="_blank">Former UCF QB Kyle Israel encounters chaos in Russia (orlandosentinel)</a></p></div></div><div class="row"><div class="news news7"><div class="newspicture col-lg-4 col-xs-12"><img class="img-responsive" src="assets/static-images/s-BENJAMIN-NETANYAHU-154x114(1).jpg"></div><div class="newsentry col-lg-8 col-xs-12"><p><a href="http://www.huffingtonpost.com/news/barack-obama/feed/" target="_blank">Alon Ben-Meir:  A Message to Netanyahu: Enough Is Enough (Huffington Post)</a></p></div></div><div class="row"><div class="news news8"><div class="newspicture col-lg-4 col-xs-12"><img class="img-responsive" src="assets/static-images/s-NETANYAHU-154x114.jpg"></div><div class="newsentry col-lg-8 col-xs-12"><p><a href="http://www.huffingtonpost.com/news/barack-obama/feed/" target="_blank">Ryan Costello:  Netanyahu's Dangerous Iran Push (Huffington Post)</a></p></div></div><div class="row"><div class="news news9"><div class="newspicture col-lg-4 col-xs-12"><img class="img-responsive" src="assets/static-images/1425256900737.cached.jpg"></div><div class="newsentry col-lg-8 col-xs-12"><p><a href="http://feeds.feedburner.com/thedailybeast/articles" target="_blank">Even Israeli Hawks Angry At Netanyahu (The Daily Beast)</a></p></div></div><div class="row"><div class="news news10"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://www.thecommentator.com/main/rss" target="_blank">Copenhagen attacks and Western mixed messages (The commentator)</a></p></div></div></div><div class="panel-footer"></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div>
+            </div>
+            <div class="col-lg-4 col-md-12 ">
+                <div id="hit7" class="panel panel-primary"><div class="panel-heading"><h1>Amen</h1></div><div class="panel-body"><div class="row"><div class="news news1"><div class="newspicture col-lg-4 col-xs-12"><img class="img-responsive" src="assets/static-images/1423651067690.cached.jpg"></div><div class="newsentry col-lg-8 col-xs-12"><p><a href="http://feeds.feedburner.com/thedailybeast/articles" target="_blank">What Will We Do Without Craig Kilborn? (The Daily Beast)</a></p></div></div><div class="row"><div class="news news2"><div class="newspicture col-lg-4 col-xs-12"><img class="img-responsive" src="assets/static-images/s-OBAMA-154x114.jpg"></div><div class="newsentry col-lg-8 col-xs-12"><p><a href="http://www.huffingtonpost.com/news/barack-obama/feed/" target="_blank">Rev. Susan Russell:  An "Amen" for the President (Huffington Post)</a></p></div></div><div class="row"><div class="news news3"><div class="newspicture col-lg-4 col-xs-12"><img class="img-responsive" src="assets/static-images/100x100-Halestorm---MAIN-Press-Photo---Credit-Jake-Giles-Netter.JPG"></div><div class="newsentry col-lg-8 col-xs-12"><p><a href="http://www.rollingstone.com/siteServices/rss/allNews" target="_blank">Watch Halestorm Rebel Against Day Jobs in Raucous 'Amen' Video (Rolling Stone)</a></p></div></div><div class="row"><div class="news news4"><div class="newspicture col-lg-4 col-xs-12"><img class="img-responsive" src="assets/static-images/100x100-95715309.jpg"></div><div class="newsentry col-lg-8 col-xs-12"><p><a href="http://www.rollingstone.com/siteServices/rss/allNews" target="_blank">'Amen Break' Creator Getting Long-Delayed Compensation for Iconic Sample (Rolling Stone)</a></p></div></div><div class="row"><div class="news news5"><div class="newspicture col-lg-4 col-xs-12"><img class="img-responsive" src="assets/static-images/1035x660-463025310.jpg"></div><div class="newsentry col-lg-8 col-xs-12"><p><a href="http://www.rollingstone.com/siteServices/secured/rssall/musicNewsAndFeature" target="_blank">See Annie Lennox and Hozier Put a Spell on the Grammys (Rolling Stone)</a></p></div></div><div class="row"><div class="news news6"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://feeds.feedburner.com/createdigitalmusic" target="_blank">Crowd-funding Campaign Wants to Pay Back Amen Break Creator (createdigitalmusic)</a></p></div></div><div class="row"><div class="news news7"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://feeds.feedburner.com/Beatportalcom-MasterFeed?format=xml" target="_blank">You Can Now Buy a Wooden “Amen Break” Waveform (Beatportalcom-MasterFeed?format=xml)</a></p></div></div><div class="row"><div class="news news8"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://feeds.feedburner.com/mashable" target="_blank">YOLO! Drake drops surprise album 'If You’re Reading This It's Too Late' (mashable)</a></p></div></div><div class="row"><div class="news news9"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://feeds2.feedburner.com/nymag/grubstreet?format=xml" target="_blank">Classic Dive Smith’s Bar Returning to Hell’s Kichen, Largely Unchanged (nymag)</a></p></div></div><div class="row"><div class="news news10"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://www.forbes.com/business/feed/" target="_blank">Customer Service And Customer Support Trends: An Interview With SOCAP CEO Matthew D'Uva (Forbes)</a></p></div></div></div><div class="panel-footer"></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div>
+            </div>
+            <div class="col-lg-4 col-md-12 ">
+                <div id="hit8" class="panel panel-primary"></div>
+            </div>
+            <div class="col-lg-4 col-md-12 ">
+                <div id="hit9" class="panel panel-primary"><div class="panel-heading"><h1>State</h1></div><div class="panel-body"><div class="row"><div class="news news1"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://feeds.feedburner.com/courant-shopping" target="_blank">List Of Connecticut Billionaires Grows To 16 (courant-shopping)</a></p></div></div><div class="row"><div class="news news2"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://www.jsonline.com/rss/?c=y&path=/news/statepolitics" target="_blank">State troopers who protect governor given $4-an-hour raises (jsonline)</a></p></div></div><div class="row"><div class="news news3"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://rss.cnn.com/rss/money_latest.rss" target="_blank">Everyone in Colorado may get a pot tax refund (CNN)</a></p></div></div><div class="row"><div class="news news4"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://feeds.feedburner.com/courant-shopping" target="_blank">Historian Traces Connecticut Tie To The Alamo (courant-shopping)</a></p></div></div><div class="row"><div class="news news5"><div class="newspicture col-lg-4 col-xs-12"><img class="img-responsive" src="assets/static-images/sp.js"></div><div class="newsentry col-lg-8 col-xs-12"><p><a href="http://feeds.feedburner.com/michigan-news" target="_blank">40 degrees below 0? No problem for Lake Superior State University students (Grand Rapids Press)</a></p></div></div><div class="row"><div class="news news6"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://feeds.feedburner.com/courant-shopping" target="_blank">Universities Fight Malloy's Plan To Cut Scholarship Program (courant-shopping)</a></p></div></div><div class="row"><div class="news news7"><div class="newspicture col-lg-4 col-xs-12"><img class="img-responsive" src="assets/static-images/mspjpg-d5aca7920b322216.jpg"></div><div class="newsentry col-lg-8 col-xs-12"><p><a href="http://feeds.feedburner.com/michigan-news" target="_blank">Eaton County sheriff's sergeant shoots, kills 17-year-old during struggle (Grand Rapids Press)</a></p></div></div><div class="row"><div class="news news8"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://www.jsonline.com/rss/?c=y&path=/sports/badgers" target="_blank">Live coverage: UW vs. Michigan State (jsonline)</a></p></div></div><div class="row"><div class="news news9"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://feeds.feedburner.com/courant-shopping" target="_blank">State Considers Ban On Open Alcohol Containers In Vehicles (courant-shopping)</a></p></div></div><div class="row"><div class="news news10"><div class="newspicture col-lg-4 col-xs-12"><div class="newsentry col-lg-12 col-xs-12"><p><a href="http://www.startribune.com/rss/?sf=1&s=/" target="_blank">Projected state budget surplus swells to $1.9 billion (Minneapolis Star Tribune)</a></p></div></div></div><div class="panel-footer"></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div>
+            </div>
+            <div class="col-lg-4 col-md-12 ">
+                <div id="hit10" class="panel panel-primary"></div>
+            </div>
+        </div><!-- /#content -->
+
+
+
+    </div><!-- /#page-wrapper -->
+</div><!-- /#wrapper -->
+
+
+
+<div id="feedly-mini" title="feedly Mini tookit"></div></body></html>

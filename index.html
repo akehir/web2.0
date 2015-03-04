@@ -52,6 +52,7 @@
                 news = getNews(query);
                 if(news != ""){
                     $("#hit"+(i+1)).html("<div class='panel-heading'><h1>"+ query +"</h1></div><div class='panel-body'>"+ news + "</div><div class='panel-footer'></div>");
+                    $("#hit"+(i+1)).removeClass("empty-news");
                 }
             }
         });
@@ -66,12 +67,11 @@
                     feedzillaHTML += "<div class='row'>";
                     feedzillaHTML += "<div class='news news"+(i+1)+"'>";
                     try{
-                        feedzillaHTML += "<div class='newspicture col-lg-4 col-xs-12'>";
-                        feedzillaHTML += "<img class='img-responsive' src='"+news[i].enclosures[0].uri+"' />";
+                        feedzillaHTML += "<div class='newspicture col-lg-4 col-xs-12'><img class='img-responsive' src='"+news[i].enclosures[0].uri+"' />";
                         // make column for news entry 8, as image is 4
                         feedzillaHTML += "</div><div class='newsentry col-lg-8 col-xs-12'>";
                     }catch(err) {
-                        console.log('no img');
+                        // console.log('no img');
                         // make col for news 12, if with news, make col for news 8
                         feedzillaHTML += "<div class='newsentry col-lg-12 col-xs-12'>";
                     }
@@ -195,35 +195,35 @@
 
 
             <div id="content" class="row">
-                <div class="col-lg-4 col-md-12 ">
-                    <div id="hit1" class="panel panel-primary"></div>
+                <div class="col-lg-4 col-xs-12 ">
+                    <div id="hit1" class="panel panel-primary empty-news"></div>
                 </div>
-                <div class="col-lg-4 col-md-12 ">
-                    <div id="hit2" class="panel panel-primary"></div>
+                <div class="col-lg-4 col-xs-12 ">
+                    <div id="hit2" class="panel panel-primary empty-news"></div>
                 </div>
-                <div class="col-lg-4 col-md-12 ">
-                    <div id="hit3" class="panel panel-primary"></div>
+                <div class="col-lg-4 col-xs-12 ">
+                    <div id="hit3" class="panel panel-primary empty-news"></div>
                 </div>
-                <div class="col-lg-4 col-md-12 ">
-                    <div id="hit4" class="panel panel-primary"></div>
+                <div class="col-lg-4 col-xs-12 ">
+                    <div id="hit4" class="panel panel-primary empty-news"></div>
                 </div>
-                <div class="col-lg-4 col-md-12 ">
-                    <div id="hit5" class="panel panel-primary"></div>
+                <div class="col-lg-4 col-xs-12 ">
+                    <div id="hit5" class="panel panel-primary empty-news"></div>
                 </div>
-                <div class="col-lg-4 col-md-12 ">
-                    <div id="hit6" class="panel panel-primary"></div>
+                <div class="col-lg-4 col-xs-12 ">
+                    <div id="hit6" class="panel panel-primary empty-news"></div>
                 </div>
-                <div class="col-lg-4 col-md-12 ">
-                    <div id="hit7" class="panel panel-primary"></div>
+                <div class="col-lg-4 col-xs-12 ">
+                    <div id="hit7" class="panel panel-primary empty-news"></div>
                 </div>
-                <div class="col-lg-4 col-md-12 ">
-                    <div id="hit8" class="panel panel-primary"></div>
+                <div class="col-lg-4 col-xs-12 ">
+                    <div id="hit8" class="panel panel-primary empty-news"></div>
                 </div>
-                <div class="col-lg-4 col-md-12 ">
-                    <div id="hit9" class="panel panel-primary"></div>
+                <div class="col-lg-4 col-xs-12 ">
+                    <div id="hit9" class="panel panel-primary empty-news"></div>
                 </div>
-                <div class="col-lg-4 col-md-12 ">
-                    <div id="hit10" class="panel panel-primary"></div>
+                <div class="col-lg-4 col-xs-12 ">
+                    <div id="hit10" class="panel panel-primary empty-news"></div>
                 </div>
             </div><!-- /#content -->
 
