@@ -67,15 +67,18 @@
                     feedzillaHTML += "<div class='row'>";
                     feedzillaHTML += "<div class='news news"+(i+1)+"'>";
                     try{
-                        feedzillaHTML += "<div class='newspicture col-lg-4 col-xs-12'><img class='img-responsive' src='"+news[i].enclosures[0].uri+"' />";
+                        feedzillaHTML += "<div class='newspicture col-lg-4 col-xs-4'><img class='img-responsive img-news' src='"+news[i].enclosures[0].uri+"' />";
                         // make column for news entry 8, as image is 4
-                        feedzillaHTML += "</div><div class='newsentry col-lg-8 col-xs-12'>";
+                        feedzillaHTML += "</div><div class='newsentry col-lg-8 col-xs-8'>";
                     }catch(err) {
-                        // console.log('no img');
                         // make col for news 12, if with news, make col for news 8
                         feedzillaHTML += "<div class='newsentry col-lg-12 col-xs-12'>";
                     }
-                    feedzillaHTML += "<p><a href='"+news[i].source_url+"' target='_blank'>"+ news[i].title +"</a></p>";
+                    feedzillaHTML += "<p><a href='"+news[i].url+"' target='_blank'>"+ news[i].title+ " | "+ news[i].publish_date +"</a></p>";
+
+                    if(i < (news.length-1) ){
+                        feedzillaHTML += "<hr>" // add horizontal line as divider to all but the last image.
+                    }
                     feedzillaHTML += "</div></div></div>";
                 }
             });
@@ -103,15 +106,13 @@
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-flag fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        <li><a href="#"><i class="fa fa-flag-checkered fa-fw"></i> US</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="index.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="#"><i class="fa fa-flag-o fa-fw"></i> Switzerland</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
