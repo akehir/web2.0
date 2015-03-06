@@ -76,10 +76,10 @@
                     }
                     feedzillaHTML += "<p><a href='"+news[i].url+"' target='_blank'>"+ news[i].title+ " | "+ news[i].publish_date +"</a></p>";
 
-                    if(i < (news.length-1) ){
-                        feedzillaHTML += "<hr>" // add horizontal line as divider to all but the last image.
-                    }
                     feedzillaHTML += "</div></div></div>";
+                    if(i < (news.length-1) ){
+                        feedzillaHTML += "<div class='row'><hr></div>" // add horizontal line as divider to all but the last image.
+                    }
                 }
             });
             $.ajaxSetup( { "async": true} );
