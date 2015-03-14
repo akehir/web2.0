@@ -23,6 +23,7 @@ $tweets = $connection->get("https://api.twitter.com/1.1/trends/place.json?id=234
  
 
 $file = fopen("tweets.php", "w");
+if($file){echo "true";}else{echo"false;"}
 fwrite($file, json_encode($tweets));
 fclose($file);
 ?>
