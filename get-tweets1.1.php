@@ -21,5 +21,9 @@ $connection = getConnectionWithAccessToken($consumerkey, $consumersecret, $acces
 # id = 23424977		US
 $tweets = $connection->get("https://api.twitter.com/1.1/trends/place.json?id=23424977&exclude=hashtags");
  
-echo json_encode($tweets);
+$text = json_encode($tweets);
+echo text;
+$file = fopen("tweets.txt", "w");
+fwrite($file, $text);
+fclose($file);
 ?>
