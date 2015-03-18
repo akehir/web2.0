@@ -85,14 +85,11 @@
                		news = "";
                 	query = trends[i].name;
 
-					console.log("tweet "+i+1);
-                	getNews(query).then(function(news){
-                		console.log("reseved news");
-                		if(news != ""){
-                    		$("#hit"+(i+1)).html("<div class='panel-heading'><h1>"+ query +"</h1></div><div class='panel-body'>"+ news + "</div><div class='panel-footer'></div>");
-                    		$("#container"+(i+1)).removeClass("empty-news");
-                		}
-                	});
+                	news = getNews(query);
+                	if(news != ""){
+                    	$("#hit"+(i+1)).html("<div class='panel-heading'><h1>"+ query +"</h1></div><div class='panel-body'>"+ news + "</div><div class='panel-footer'></div>");
+                    	$("#container"+(i+1)).removeClass("empty-news");
+                	}
             	}
             	return 1;
         	});
@@ -100,8 +97,9 @@
         }
 
         function getNews(query){
-            return $.getJSON("http://api.feedzilla.com/v1/articles/search.json?q="+query+"&count=10&title_only=1", function(json) {
             var feedzillaHTML = "";
+            $.ajaxSetup( { "async": false } );
+            $.getJSON("http://api.feedzilla.com/v1/articles/search.json?q="+query+"&count=10&title_only=1", function(json) {
 
                 var news = json.articles;
                 for(var i = 0; i < news.length; i++){
@@ -122,8 +120,9 @@
                         feedzillaHTML += "<div class='row'><hr></div>" // add horizontal line as divider to all but the last image.
                     }
                 }
-            	return feedzillaHTML;
             });
+            $.ajaxSetup( { "async": true} );
+            return feedzillaHTML;
         }
         
     </script>
