@@ -72,7 +72,7 @@
             	var query = "";
             	var news = "";
 
-            	for(var i = 0; i < trends.length; i++){
+            	for(var i = 0; i < 5; i++){
                		news = "";
                 	query = trends[i].name;
 
@@ -91,7 +91,7 @@
         function getNews(query){
             var feedzillaHTML = "";
             $.ajaxSetup( { "async": false } );
-            $.getJSON("http://api.feedzilla.com/v1/articles/search.json?q="+query+"&count=10&title_only=1", function(json) {
+            $.getJSON("http://api.feedzilla.com/v1/articles/search.json?q="+query+"&count=5&title_only=1", function(json) {
 
                 var news = json.articles;
                 for(var i = 0; i < news.length; i++){
