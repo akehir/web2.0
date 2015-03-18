@@ -71,7 +71,7 @@
             for(var i = 0; i < 10; i++){
             	$("#hit"+(i+1)).html("");
             }
-    		getTweets(woeid).then(function(returndata){
+    		getTweets(woeid).then(function(){
   				$("body").removeClass("loading");
 			});}
     	
@@ -85,11 +85,12 @@
                		news = "";
                 	query = trends[i].name;
 
-                	news = getNews(query);
-                	if(news != ""){
-                    	$("#hit"+(i+1)).html("<div class='panel-heading'><h1>"+ query +"</h1></div><div class='panel-body'>"+ news + "</div><div class='panel-footer'></div>");
-                    	$("#container"+(i+1)).removeClass("empty-news");
-                	}
+                	getNews(query)then(function(news){
+                		if(news != ""){
+                    		$("#hit"+(i+1)).html("<div class='panel-heading'><h1>"+ query +"</h1></div><div class='panel-body'>"+ news + "</div><div class='panel-footer'></div>");
+                    		$("#container"+(i+1)).removeClass("empty-news");
+                		}
+                	});
             	}
             	return 1;
         	});
@@ -98,7 +99,6 @@
 
         function getNews(query){
             var feedzillaHTML = "";
-            $.ajaxSetup( { "async": false } );
             $.getJSON("http://api.feedzilla.com/v1/articles/search.json?q="+query+"&count=10&title_only=1", function(json) {
 
                 var news = json.articles;
@@ -121,7 +121,6 @@
                     }
                 }
             });
-            $.ajaxSetup( { "async": true} );
             return feedzillaHTML;
         }
         
