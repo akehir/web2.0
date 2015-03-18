@@ -62,12 +62,11 @@
     <script src="jquery-1.9.1.js" type="text/javascript"></script>
 
     <script type="text/javascript">
-    	$( document ).ready(function() {
-    		getTweets(1);
+    	$(document).ready(function() {
+    		//getTweets(1);
     	});
     	function getTweets(woeid){
     		$("body").addClass("loading");
-            $.ajaxSetup( { "async": false } );
         	$.getJSON("./tweets-"+woeid+".txt", function(json) {
             	var trends = json[0].trends;
             	var query = "";
@@ -85,7 +84,6 @@
                 	console.log("tweet "+i);
             	}
         	});
-            $.ajaxSetup( { "async": true} );
     		//$("body").removeClass("loading");
     		console.log("Finished");
         }
