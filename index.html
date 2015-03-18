@@ -63,11 +63,16 @@
 
     <script type="text/javascript">
     	$(document).ready(function() {
-    		//getTweets(1);
+    		$("body").addClass("loading");
+    		
+    		getTweets(1).then(function(returndata){
+  				$("body").removeClass("loading");
+    		console.log("Finished");
+			});
+    		
     	});
     	function getTweets(woeid){
-    		$("body").addClass("loading");
-        	$.getJSON("./tweets-"+woeid+".txt", function(json) {
+        	return $.getJSON("./tweets-"+woeid+".txt", function(json) {
             	var trends = json[0].trends;
             	var query = "";
             	var news = "";
@@ -83,9 +88,9 @@
                 	}
                 	console.log("tweet "+i);
             	}
+            	return 1;
         	});
-    		//$("body").removeClass("loading");
-    		console.log("Finished");
+        	
         }
 
         function getNews(query){
