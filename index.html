@@ -63,21 +63,25 @@
 
     <script type="text/javascript">
     	$(document).ready(function() {
-    		$("body").addClass("loading");
-    		
-    		getTweets(1).then(function(returndata){
-  				$("body").removeClass("loading");
-    		console.log("Finished");
-			});
-    		
+    		tweetly(1);    		
     	});
+    	
+    	function tweetly(woeid){
+    		$("body").addClass("loading");
+            for(var i = 0; i < 10; i++){
+            	$("#hit"+(i+1)).html("");
+            }
+    		getTweets(woeid).then(function(returndata){
+  				$("body").removeClass("loading");
+			});}
+    	
     	function getTweets(woeid){
         	return $.getJSON("./tweets-"+woeid+".txt", function(json) {
             	var trends = json[0].trends;
             	var query = "";
             	var news = "";
 
-            	for(var i = 0; i < 5; i++){
+            	for(var i = 0; i < 10; i++){
                		news = "";
                 	query = trends[i].name;
 
@@ -86,7 +90,6 @@
                     	$("#hit"+(i+1)).html("<div class='panel-heading'><h1>"+ query +"</h1></div><div class='panel-body'>"+ news + "</div><div class='panel-footer'></div>");
                     	$("#container"+(i+1)).removeClass("empty-news");
                 	}
-                	console.log("tweet "+i);
             	}
             	return 1;
         	});
@@ -96,7 +99,7 @@
         function getNews(query){
             var feedzillaHTML = "";
             $.ajaxSetup( { "async": false } );
-            $.getJSON("http://api.feedzilla.com/v1/articles/search.json?q="+query+"&count=5&title_only=1", function(json) {
+            $.getJSON("http://api.feedzilla.com/v1/articles/search.json?q="+query+"&count=10&title_only=1", function(json) {
 
                 var news = json.articles;
                 for(var i = 0; i < news.length; i++){
@@ -145,8 +148,8 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li onclick="getTweets(23424977)">USA</li>
-                        <li onclick="getTweets(1)">World Wide</li>
+                        <li><button id="woeid23424977" onclick="tweetly(23424977)">USA</button></li>
+                        <li><button id="woeid1" onclick="tweetly(1)">World Wide</button></li>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
