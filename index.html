@@ -79,10 +79,12 @@
                     	$("#hit"+(i+1)).html("<div class='panel-heading'><h1>"+ query +"</h1></div><div class='panel-body'>"+ news + "</div><div class='panel-footer'></div>");
                     	$("#container"+(i+1)).removeClass("empty-news");
                 	}
+                	console.log("tweet "+i);
             	}
         	});
             $.ajaxSetup( { "async": true} );
-    		$("body").removeClass("loading");
+    		//$("body").removeClass("loading");
+    		console.log("Finished");
         }
 
         function getNews(query){
