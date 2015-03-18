@@ -62,6 +62,9 @@
     <script src="jquery-1.9.1.js" type="text/javascript"></script>
 
     <script type="text/javascript">
+    	$( document ).ready(function() {
+    		getTweets(1);
+    	});
     	function getTweets(woeid){
     		$("body").addClass("loading");
             $.ajaxSetup( { "async": false } );
@@ -118,7 +121,7 @@
         
     </script>
 </head>
-<body onload="getTweets(23424977)" class="loading">
+<body class="loading">
 	<div id="loading">Please wait...</div>
     <div id="wrapper">
 
