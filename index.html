@@ -85,7 +85,7 @@
                		news = "";
                 	query = trends[i].name;
 
-                	news = getNews(query);
+                	news = getNews(woeid, i);
                 	if(news != ""){
                     	$("#hit"+(i+1)).html("<div class='panel-heading'><h1>"+ query +"</h1></div><div class='panel-body'>"+ news + "</div><div class='panel-footer'></div>");
                     	$("#container"+(i+1)).removeClass("empty-news");
@@ -96,10 +96,10 @@
         	
         }
 
-        function getNews(query){
+        function getNews(woeid, count){
             var feedzillaHTML = "";
             $.ajaxSetup( { "async": false } );
-            $.getJSON("http://api.feedzilla.com/v1/articles/search.json?q="+query+"&count=10&title_only=1", function(json) {
+            $.getJSON("./tweets-"+woeid+"-"+count+".txt", function(json) {
 
                 var news = json.articles;
                 for(var i = 0; i < news.length; i++){
