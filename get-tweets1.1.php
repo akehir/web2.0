@@ -21,8 +21,7 @@ $tweets = $connection->get("https://api.twitter.com/1.1/trends/place.json?id=1&e
 $text = json_encode($tweets);
 
 preg_match_all("|\"name\":\"(.*)\"|U", $text, $matches);
-for($i=0; $i < count($matches[1]); $i++){
-	echo "<br/>";
+for($i = 0; $i < count($matches[1]); $i++){
 	$query = $matches[1][$i];
 	$ch = curl_init( "http://api.feedzilla.com/v1/articles/search.json?q=$query&count=10&title_only=1" );
 	curl_setopt( $ch, CURLOPT_VERBOSE, 1 );
@@ -31,13 +30,12 @@ for($i=0; $i < count($matches[1]); $i++){
 	$response = curl_exec( $ch );
 	$responseInfo = curl_getinfo( $ch );
 	curl_close( $ch );
-	if ( intval( $responseInfo['http_code'] ) == 200 ){
-		echo "worked <br/>";
-		echo $response;
-	} else {
-		echo "error";
+	if ( intval( $responseInfo['http_code'] ) != 200 ){
+		$response = "";
 	}
-	break;
+	$file = fopen("tweets-1-"+ $i +".txt", "w");
+	fwrite($file, $response);
+	fclose($file);
 }
 
 $file = fopen("tweets-1.txt", "w");
@@ -46,8 +44,25 @@ fclose($file);
 
 # id = 23424977		US
 $tweets = $connection->get("https://api.twitter.com/1.1/trends/place.json?id=23424977&exclude=hashtags");
-echo $tweets;
 $text = json_encode($tweets);
+preg_match_all("|\"name\":\"(.*)\"|U", $text, $matches);
+for($i = 0; $i < count($matches[1]); $i++){
+	$query = $matches[1][$i];
+	$ch = curl_init( "http://api.feedzilla.com/v1/articles/search.json?q=$query&count=10&title_only=1" );
+	curl_setopt( $ch, CURLOPT_VERBOSE, 1 );
+	curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1 );
+	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
+	$response = curl_exec( $ch );
+	$responseInfo = curl_getinfo( $ch );
+	curl_close( $ch );
+	if ( intval( $responseInfo['http_code'] ) != 200 ){
+		$response = "";
+	}
+	$file = fopen("tweets-23424977-"+ $i +".txt", "w");
+	fwrite($file, $response);
+	fclose($file);
+}
+
 $file = fopen("tweets-23424977.txt", "w");
 fwrite($file, $text);
 fclose($file);
