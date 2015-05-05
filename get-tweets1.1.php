@@ -23,7 +23,21 @@ $text = json_encode($tweets);
 preg_match_all("|\"name\":\"(.*)\"|U", $text, $matches);
 for($i=0; $i < count($matches[1]); $i++){
 	echo "<br/>";
-	echo $matches[1][$i];
+	$query = $matches[1][$i];
+	$ch = curl_init( "http://api.feedzilla.com/v1/articles/search.json?q=$query&count=10&title_only=1" );
+	curl_setopt( $ch, CURLOPT_VERBOSE, 1 );
+	curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1 );
+	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
+	$response = curl_exec( $ch );
+	$responseInfo = curl_getinfo( $ch );
+	curl_close( $ch );
+	if ( intval( $responseInfo['http_code'] ) == 200 ){
+		echo "worked <br/>";
+		echo $response;
+	} else {
+		echo "error";
+	}
+	break;
 }
 
 $file = fopen("tweets-1.txt", "w");
