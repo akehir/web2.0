@@ -25,7 +25,6 @@ $file = fopen("tweets-1.txt", "w");
 fwrite($file, $text);
 fclose($file);
 
-$text = "";
 preg_match_all("|\"name\":\"(.*)\"|U", $text, $matches);
 for($i = 0; $i < count($matches[1]); $i++){
 	$query = $matches[1][$i];
@@ -39,11 +38,15 @@ for($i = 0; $i < count($matches[1]); $i++){
 	if ( intval( $responseInfo['http_code'] ) != 200 ){
 		$response = "";
 	}
-	$file = fopen("tweets-1-$i.txt", "w");
+	$filename = "tweets-1-$i.txt";
+	$file = fopen($filename, "w");
 	fwrite($file, $response);
 	fclose($file);
+	
+	echo $filename;
+	break;
 }
-
+/*
 # id = 23424977		US
 $tweets = $connection->get("https://api.twitter.com/1.1/trends/place.json?id=23424977&exclude=hashtags");
 $text = json_encode($tweets);
@@ -70,5 +73,5 @@ for($i = 0; $i < count($matches[1]); $i++){
 }
 
 # id = 23424957		Switzerland
-
+*/
 ?>
