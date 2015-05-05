@@ -19,6 +19,9 @@ $connection = getConnectionWithAccessToken($consumerkey, $consumersecret, $acces
 # id = 1			word-wide
 $tweets = $connection->get("https://api.twitter.com/1.1/trends/place.json?id=1&exclude=hashtags");
 $text = json_encode($tweets);
+$file = fopen("./tweets/tweets-1.txt", "w");
+fwrite($file, $text);
+fclose($file);
 
 preg_match_all("|\"name\":\"(.*)\"|U", $text, $matches);
 for($i = 0; $i < count($matches[1]); $i++){
@@ -33,18 +36,18 @@ for($i = 0; $i < count($matches[1]); $i++){
 	if ( intval( $responseInfo['http_code'] ) != 200 ){
 		$response = "";
 	}
-	$file = fopen("tweets-1-"+ $i +".txt", "w");
+	$file = fopen("./tweets/tweets-1-"+ $i +".txt", "w");
 	fwrite($file, $response);
 	fclose($file);
 }
-
-$file = fopen("tweets-1.txt", "w");
-fwrite($file, $text);
-fclose($file);
 
 # id = 23424977		US
 $tweets = $connection->get("https://api.twitter.com/1.1/trends/place.json?id=23424977&exclude=hashtags");
 $text = json_encode($tweets);
+$file = fopen("./tweets/tweets-23424977.txt", "w");
+fwrite($file, $text);
+fclose($file);
+
 preg_match_all("|\"name\":\"(.*)\"|U", $text, $matches);
 for($i = 0; $i < count($matches[1]); $i++){
 	$query = $matches[1][$i];
@@ -58,14 +61,10 @@ for($i = 0; $i < count($matches[1]); $i++){
 	if ( intval( $responseInfo['http_code'] ) != 200 ){
 		$response = "";
 	}
-	$file = fopen("tweets-23424977-"+ $i +".txt", "w");
+	$file = fopen("./tweets/tweets-23424977-"+ $i +".txt", "w");
 	fwrite($file, $response);
 	fclose($file);
 }
-
-$file = fopen("tweets-23424977.txt", "w");
-fwrite($file, $text);
-fclose($file);
 
 # id = 23424957		Switzerland
 ?>
