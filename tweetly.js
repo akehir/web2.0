@@ -4,6 +4,14 @@
     	
     	function tweetly(woeid){
     		$("body").addClass("loading");
+    		
+    		if(woeid = 1){
+    			$(".page-header").html("Top Twitter News - World Wide");    		
+    		}else if(woeid = 23424977){
+    			$(".page-header").html("Top Twitter News - USA");    	
+    		}	
+    		
+    		
             for(var i = 0; i < 10; i++){
             	$("#hit"+(i+1)).html("");
             }
