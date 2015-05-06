@@ -2,9 +2,7 @@
     		tweetly(1);    		
     	});
     	
-    	function tweetly(woeid){
-    		$("body").addClass("loading");
-    		
+    	function tweetly(woeid){    		
     		if(woeid = 1){
     			$(".page-header").html("Top Twitter News - World Wide");    		
     		}else if(woeid = 23424977){
@@ -15,9 +13,7 @@
             for(var i = 0; i < 10; i++){
             	$("#hit"+(i+1)).html("");
             }
-    		getTweets(woeid).then(function(){
-  				$("body").removeClass("loading");
-			});}
+    	}
     	
     	function getTweets(woeid){
         	return $.getJSON("./tweets-"+woeid+".txt", function(json) {
