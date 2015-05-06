@@ -85,7 +85,7 @@
                		news = "";
                 	query = trends[i].name;
 
-                	news = ""; //getNews(woeid, i);
+                	news = getNews(woeid, i);
                 	$("#hit"+(i+1)).html("<div class='panel-heading'><h1>"+ query +"</h1></div><div class='panel-body'>"+ news + "</div><div class='panel-footer'></div>");
                     $("#container"+(i+1)).removeClass("empty-news");
                 	
