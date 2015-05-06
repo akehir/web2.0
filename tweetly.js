@@ -3,9 +3,9 @@
     	});
     	
     	function tweetly(woeid){    		
-    		if(woeid = 1){
+    		if(woeid == 1){
     			$(".page-header").html("Top Twitter News - World Wide");    		
-    		}else if(woeid = 23424977){
+    		}else if(woeid == 23424977){
     			$(".page-header").html("Top Twitter News - USA");    	
     		}	    		
     		
@@ -22,7 +22,7 @@
             	var query = "";
             	var news = "";
 
-            	for(var i = 0; i < 10; i++){
+            	for(var i = 0; i < trends.length; i++){
                		news = "";
                 	query = trends[i].name;
 
