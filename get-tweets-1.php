@@ -24,6 +24,7 @@ $text = json_encode($tweets);
 $file = fopen("tweets-1.txt", "w");
 fwrite($file, $text);
 fclose($file);
+echo "received and saved tweets";
 
 preg_match_all("|\"name\":\"(.*)\"|U", $text, $matches);
 for($i = 0; $i < count($matches[1]); $i++){
@@ -33,7 +34,14 @@ for($i = 0; $i < count($matches[1]); $i++){
 	curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1 );
 	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
 	$response = curl_exec( $ch );
+	$responseInfo = curl_getinfo( $ch );
 	curl_close( $ch );
+	if ( intval( $responseInfo['http_code'] ) != 200 ){
+		$response = "";
+		echo "Feedzilla ($query): error "+ $responseInfo['http_code'];
+	}else{
+		echo "Feedzilla ($query): received and saved";
+	}
 
 	$file = fopen("tweets-1-$i.txt", "w");
 	fwrite($file, $response);
