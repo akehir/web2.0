@@ -19,7 +19,6 @@ if (empty($_GET["woeid"])) {
 	";
 }else{
 	$woeid = $_GET["woeid"];
-}
 
 session_start();
 require_once("twitteroauth-master/twitteroauth/twitteroauth.php"); //Path to twitteroauth library
@@ -70,5 +69,7 @@ for($i = 0; $i < count($matches[1])-1; $i++){
 		echo "Text konnte nicht geschrieben werden<br/>";
 	}
 	fclose($file);
+}
+
 }
 ?>
