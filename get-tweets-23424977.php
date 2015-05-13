@@ -37,7 +37,9 @@ for($i = 0; $i < count($matches[1]); $i++){
 	$responseInfo = curl_getinfo( $ch );
 	curl_close( $ch );
 	if ( intval( $responseInfo['http_code'] ) != 200 ){
-		echo "Feedzilla ($query): error "+ $responseInfo['http_code'] +"<br/>";
+		echo "Feedzilla ($query): error ";
+		echo $responseInfo['http_code'];
+		echo "<br/>";
 	}else{
 		echo "Feedzilla ($query): received and saved<br/>";
 	}
