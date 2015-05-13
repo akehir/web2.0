@@ -39,7 +39,7 @@ $connection = getConnectionWithAccessToken($consumerkey, $consumersecret, $acces
  
 $tweets = $connection->get("https://api.twitter.com/1.1/trends/place.json?id=23424977&exclude=hashtags");
 $text = json_encode($tweets);
-$file = fopen("tweets-$woeid.json", "w");
+$file = fopen("./tweetsly/tweetsly-$woeid.json", "w");
 fwrite($file, $text);
 fclose($file);
 echo "received and saved tweets<br/>";
@@ -63,7 +63,7 @@ for($i = 0; $i < count($matches[1])-1; $i++){
 		echo "Feedzilla ($query): received and saved<br/>";
 	}
 
-	if(!$file = fopen("tweets-$woeid-$i.json", "w")){
+	if(!$file = fopen("./tweetsly/tweetsly-$woeid-$i.json", "w")){
 		echo "Datei konnte nicht geöffnet werden<br/>";
 	}
 	if(!fwrite($file, $response)){

@@ -17,7 +17,7 @@
     	}
     	
     	function getTweets(woeid){
-        	return $.getJSON("./tweets-"+woeid+".json", function(json) {
+        	return $.getJSON("./tweetsly/tweetsly-"+woeid+".json", function(json) {
             	var trends = json[0].trends;
             	var query = "";
             	var news = "";
@@ -39,7 +39,7 @@
         function getNews(woeid, count){
             var feedzillaHTML = "";
             $.ajaxSetup( { "async": false } );
-            $.getJSON("./tweets-"+woeid+"-"+count+".json", function(json) {
+            $.getJSON("./tweetsly/tweetsly-"+woeid+"-"+count+".json", function(json) {
 
 				try {
                 	var news = json.articles;
