@@ -1,12 +1,12 @@
     	$(document).ready(function() {
-    		tweetly(1);    		
+    		tweetsly(1);    		
     	});
     	
-    	function tweetly(woeid){    		
+    	function tweetsly(woeid){    		
     		if(woeid == 1){
-    			$(".page-header").html("Top Twitter News - World Wide");    		
+    			$(".page-header").html("Tweetsly - World Wide");    		
     		}else if(woeid == 23424977){
-    			$(".page-header").html("Top Twitter News - USA");    	
+    			$(".page-header").html("Tweetsly - USA");    	
     		}	    		
     		
             for(var i = 0; i < 10; i++){
@@ -17,7 +17,7 @@
     	}
     	
     	function getTweets(woeid){
-        	return $.getJSON("./tweets-"+woeid+".txt", function(json) {
+        	return $.getJSON("./tweets-"+woeid+".json", function(json) {
             	var trends = json[0].trends;
             	var query = "";
             	var news = "";
@@ -39,7 +39,7 @@
         function getNews(woeid, count){
             var feedzillaHTML = "";
             $.ajaxSetup( { "async": false } );
-            $.getJSON("./tweets-"+woeid+"-"+count+".txt", function(json) {
+            $.getJSON("./tweets-"+woeid+"-"+count+".json", function(json) {
 
 				try {
                 	var news = json.articles;
