@@ -24,6 +24,7 @@ $text = json_encode($tweets);
 $file = fopen("tweets-23424977.txt", "w");
 fwrite($file, $text);
 fclose($file);
+echo "received and saved tweets<br/>";
 
 preg_match_all("|\"name\":\"(.*)\"|U", $text, $matches);
 for($i = 0; $i < count($matches[1]); $i++){
@@ -33,10 +34,20 @@ for($i = 0; $i < count($matches[1]); $i++){
 	curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1 );
 	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
 	$response = curl_exec( $ch );
+	$responseInfo = curl_getinfo( $ch );
 	curl_close( $ch );
+	if ( intval( $responseInfo['http_code'] ) != 200 ){
+		echo "Feedzilla ($query): error "+ $responseInfo['http_code'] +"<br/>";
+	}else{
+		echo "Feedzilla ($query): received and saved<br/>";
+	}
 
-	$file = fopen("tweets-23424977-$i.txt", "w");
-	fwrite($file, $response);
+	if(!$file = fopen("tweets-23424977-$i.txt", "w")){
+		echo "Datei konnte nicht geöffnet werden<br/>";
+	}
+	if(!fwrite($file, $response)){
+		echo "Text konnte nicht geschrieben werden<br/>";
+	}
 	fclose($file);
 }
 

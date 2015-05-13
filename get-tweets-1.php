@@ -37,7 +37,6 @@ for($i = 0; $i < count($matches[1]); $i++){
 	$responseInfo = curl_getinfo( $ch );
 	curl_close( $ch );
 	if ( intval( $responseInfo['http_code'] ) != 200 ){
-		$response = "";
 		echo "Feedzilla ($query): error "+ $responseInfo['http_code'] +"<br/>";
 	}else{
 		echo "Feedzilla ($query): received and saved<br/>";
@@ -50,6 +49,6 @@ for($i = 0; $i < count($matches[1]); $i++){
 		echo "Text konnte nicht geschrieben werden<br/>";
 	}
 	fclose($file);
-	
 }
+
 ?>
