@@ -1,5 +1,25 @@
 <?php
+# id = 1			word-wide
+# id = 23424977		US
+# id = 23424957		Switzerland
 $since = date('Y-m-d', strtotime('-30 days'));
+
+if (empty($_GET["woeid"])) {
+	echo "woeid per GET übergeben oder inputfeld nutzen:<br/>";
+	echo "
+		<form method='get' action=''>
+			<input type='text' name='woeid' />
+			<input type='submit'>
+		</form>
+		<ul>
+			<li>1: world-wide</li>
+			<li>23424977: United States</li>
+			<li>23424957: Switzerland</li>
+		</ul>
+	";
+}else{
+	$woeid = $_GET["woeid"];
+}
 
 session_start();
 require_once("twitteroauth-master/twitteroauth/twitteroauth.php"); //Path to twitteroauth library
@@ -18,41 +38,15 @@ function getConnectionWithAccessToken($cons_key, $cons_secret, $oauth_token, $oa
  
 $connection = getConnectionWithAccessToken($consumerkey, $consumersecret, $accesstoken, $accesstokensecret);
  
-# id = 1			word-wide
-$tweets = $connection->get("https://api.twitter.com/1.1/trends/place.json?id=1&exclude=hashtags");
-$text = json_encode($tweets);
-$file = fopen("tweets-1.txt", "w");
-fwrite($file, $text);
-fclose($file);
-
-preg_match_all("|\"name\":\"(.*)\"|U", $text, $matches);
-for($i = 0; $i < count($matches[1]); $i++){
-	$query = $matches[1][$i];
-	$ch = curl_init( "http://api.feedzilla.com/v1/articles/search.json?q=$query&count=10&title_only=1&since=$since" );
-	curl_setopt( $ch, CURLOPT_VERBOSE, 1 );
-	curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1 );
-	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
-	$response = curl_exec( $ch );
-	$responseInfo = curl_getinfo( $ch );
-	curl_close( $ch );
-	if ( intval( $responseInfo['http_code'] ) != 200 ){
-		$response = "";
-	}
-	$file = fopen("tweets-1-$i.txt", "w");
-	fwrite($file, $response);
-	fclose($file);
-	
-}
-
-# id = 23424977		US
 $tweets = $connection->get("https://api.twitter.com/1.1/trends/place.json?id=23424977&exclude=hashtags");
 $text = json_encode($tweets);
-$file = fopen("tweets-23424977.txt", "w");
+$file = fopen("tweets-$woeid.txt", "w");
 fwrite($file, $text);
 fclose($file);
+echo "received and saved tweets<br/>";
 
 preg_match_all("|\"name\":\"(.*)\"|U", $text, $matches);
-for($i = 0; $i < count($matches[1]); $i++){
+for($i = 0; $i < count($matches[1])-1; $i++){
 	$query = $matches[1][$i];
 	$ch = curl_init( "http://api.feedzilla.com/v1/articles/search.json?q=$query&count=10&title_only=1&since=$since" );
 	curl_setopt( $ch, CURLOPT_VERBOSE, 1 );
@@ -62,13 +56,19 @@ for($i = 0; $i < count($matches[1]); $i++){
 	$responseInfo = curl_getinfo( $ch );
 	curl_close( $ch );
 	if ( intval( $responseInfo['http_code'] ) != 200 ){
-		$response = "";
+		echo "Feedzilla ($query): error ";
+		echo $responseInfo['http_code'];
+		echo "<br/>";
+	}else{
+		echo "Feedzilla ($query): received and saved<br/>";
 	}
-	$file = fopen("tweets-23424977-$i.txt", "w");
-	fwrite($file, $response);
+
+	if(!$file = fopen("tweets-$woeid-$i.txt", "w")){
+		echo "Datei konnte nicht geöffnet werden<br/>";
+	}
+	if(!fwrite($file, $response)){
+		echo "Text konnte nicht geschrieben werden<br/>";
+	}
 	fclose($file);
 }
-
-# id = 23424957		Switzerland
-
 ?>

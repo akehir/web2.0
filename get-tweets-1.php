@@ -27,7 +27,7 @@ fclose($file);
 echo "received and saved tweets<br/>";
 
 preg_match_all("|\"name\":\"(.*)\"|U", $text, $matches);
-for($i = 0; $i < count($matches[1]); $i++){
+for($i = 0; $i < count($matches[1])-1; $i++){
 	$query = $matches[1][$i];
 	$ch = curl_init( "http://api.feedzilla.com/v1/articles/search.json?q=$query&count=10&title_only=1&since=$since" );
 	curl_setopt( $ch, CURLOPT_VERBOSE, 1 );
