@@ -41,25 +41,29 @@
             $.ajaxSetup( { "async": false } );
             $.getJSON("./tweets-"+woeid+"-"+count+".txt", function(json) {
 
-                var news = json.articles;
-                for(var i = 0; i < news.length; i++){
-                    feedzillaHTML += "<div class='row'>";
-                    feedzillaHTML += "<div class='news news"+(i+1)+"'>";
-                    try{
-                        feedzillaHTML += "<div class='newspicture col-lg-4 col-xs-4'><img class='img-responsive img-news' src='"+news[i].enclosures[0].uri+"' />";
-                        // make column for news entry 8, as image is 4
-                        feedzillaHTML += "</div><div class='newsentry col-lg-8 col-xs-8'>";
-                    }catch(err) {
-                        // make col for news 12, if with news, make col for news 8
-                        feedzillaHTML += "<div class='newsentry col-lg-12 col-xs-12'>";
-                    }
-                    feedzillaHTML += "<p><a href='"+news[i].url+"' target='_blank'>"+ news[i].title+ " | "+ news[i].publish_date +"</a></p>";
+				try {
+                	var news = json.articles;
+                	for(var i = 0; i < news.length; i++){
+                    	feedzillaHTML += "<div class='row'>";
+                    	feedzillaHTML += "<div class='news news"+(i+1)+"'>";
+                    	try{
+                        	feedzillaHTML += "<div class='newspicture col-lg-4 col-xs-4'><img class='img-responsive img-news' src='"+news[i].enclosures[0].uri+"' />";
+                        	// make column for news entry 8, as image is 4
+                        	feedzillaHTML += "</div><div class='newsentry col-lg-8 col-xs-8'>";
+                    	}catch(err) {
+                        	// make col for news 12, if with news, make col for news 8
+                        	feedzillaHTML += "<div class='newsentry col-lg-12 col-xs-12'>";
+                    	}
+                    	feedzillaHTML += "<p><a href='"+news[i].url+"' target='_blank'>"+ news[i].title+ " | "+ news[i].publish_date +"</a></p>";
 
-                    feedzillaHTML += "</div></div></div>";
-                    if(i < (news.length-1) ){
-                        feedzillaHTML += "<div class='row'><hr></div>" // add horizontal line as divider to all but the last image.
-                    }
-                }
+                    	feedzillaHTML += "</div></div></div>";
+                    	if(i < (news.length-1) ){
+                        	feedzillaHTML += "<div class='row'><hr></div>" // add horizontal line as divider to all but the last image.
+                    	}
+                	}
+                } catch(err) {
+    				console.log("error in feedzilla query", count);
+				}
             });
             $.ajaxSetup( { "async": true} );
             return feedzillaHTML;
