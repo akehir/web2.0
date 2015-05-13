@@ -5,7 +5,7 @@
 $since = date('Y-m-d', strtotime('-30 days'));
 
 if (empty($_GET["woeid"])) {
-	echo "woeid per GET übergeben oder inputfeld nutzen:<br/>";
+	echo "woeid per GET &uuml;bergeben oder Inputfeld benutzen:<br/>";
 	echo "
 		<form method='get' action=''>
 			<input type='text' name='woeid' />
