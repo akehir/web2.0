@@ -45,6 +45,7 @@ if (empty($_GET["woeid"])) {
 	echo "received and saved tweets<br/>";
 
 	preg_match_all("|\"name\":\"(.*)\"|U", $text, $matches);
+	$counter_200 = 0;
 	for($i = 0; $i < count($matches[1])-1; $i++){
 		$query = $matches[1][$i];
 		$query = str_replace(" ", "%20", $query);
@@ -61,6 +62,7 @@ if (empty($_GET["woeid"])) {
 			echo "<br/>";
 		}else{
 			echo "Feedzilla ($query): received and saved<br/>";
+			$counter_200++;
 		}
 
 		if(!$file = fopen("./tmp/tweetsly-$woeid-$i.json", "w")){
@@ -73,9 +75,11 @@ if (empty($_GET["woeid"])) {
 	}
 	
 	// move files to ./tweetsly
-	rename("./tmp/tweetsly-$woeid.json", "./tweetsly/tweetsly-$woeid.json");
-	for($i = 0; $i < count($matches[1])-1; $i++){
-		rename("./tmp/tweetsly-$woeid-$i.json", "./tweetsly/tweetsly-$woeid-$i.json");
+	if( $counter_200 > 0){
+		rename("./tmp/tweetsly-$woeid.json", "./tweetsly/tweetsly-$woeid.json");
+		for($i = 0; $i < count($matches[1])-1; $i++){
+			rename("./tmp/tweetsly-$woeid-$i.json", "./tweetsly/tweetsly-$woeid-$i.json");
+		}
 	}
 
 }
