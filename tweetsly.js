@@ -66,9 +66,13 @@ function getNews(woeid, count){
 				if(news.length > 0) {
 					$("#container" + (count + 1)).removeClass("empty-news");
 					$("#hit" + (count + 1)).removeClass("empty-news");
+					$("#hit"+(count+1)).removeClass("greyed-news");
+					$("#container"+(count+1)).removeClass("greyed-news");
 				}else{
-				$("#hit"+(count+1)).addClass("empty-news");
-				$("#container"+(count+1)).addClass("empty-news");
+					$("#container" + (count + 1)).removeClass("empty-news");
+					$("#hit" + (count + 1)).removeClass("empty-news");
+					$("#hit"+(count+1)).addClass("greyed-news");
+					$("#container"+(count+1)).addClass("greyed-news");
 			}
 			}else{
 				$("#hit"+(count+1)).addClass("empty-news");
