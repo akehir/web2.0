@@ -22,3 +22,43 @@
 .img-news{
     /*padding: 5%;*/
 }
+.page-header {
+    font-family: 'Playfair Display SC', serif;
+}
+.navbar-brand{
+    font-family: 'Playfair Display SC', serif;
+}
+#page-wrapper {
+    margin: 77px 22px 22px 22px;
+    /* box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px 0px; */
+    border: 0;
+    background-color: inherit;
+}
+.navbar-top-links{
+    float: right !important;
+}
+.navbar-top-links .dropdown-messages,
+.navbar-top-links .dropdown-tasks,
+.navbar-top-links .dropdown-alerts {
+    width: 200px;
+}
+@media(min-width:768px){
+    .navbar-top-links{
+        float: right !important;
+    }
+    .navbar-header{
+        float: inherit;
+    }
+    #page-wrapper {
+        margin: 77px 22px 22px 22px;
+        /* box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px 0px; */
+        border: 0;
+        background-color: inherit;
+    }
+}
+
+.content-wrapper{
+    margin: 11px 11px 11px 11px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px 0px;
+    background-color: rgb(250, 250, 250);
+}
