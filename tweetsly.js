@@ -1,6 +1,10 @@
 $(document).ready(function() {
 	tweetsly(1);
 	
+	
+	$("#page").click(function() {
+		$(".wrapper_news").removeClass("active");
+	});
 
 	$(".hit").click(function() {
 		if ($(this).find(".wrapper_news").hasClass("active")) {
@@ -11,9 +15,6 @@ $(document).ready(function() {
 		}
 	});
 	
-	$("#page").click(function() {
-		$(".wrapper_news").removeClass("active");
-	});
 });
 
 function tweetsly(woeid){
