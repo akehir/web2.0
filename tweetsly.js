@@ -10,7 +10,7 @@ $(document).ready(function() {
 			$(this).find(".wrapper_news").addClass("active");
 		}
 	});
-	$("#page, #hit").click(function() {
+	$("body, #hit").click(function() {
 		$(this).removeClass("active");
 	});
 });
