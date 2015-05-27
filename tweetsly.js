@@ -30,7 +30,7 @@ function getTweets(woeid){
 			query = trends[i].name;
 
 			news = getNews(woeid, i);
-			$("#hit"+(i+1)).html("<div class='wrapper'><h1>"+ query +"</h1><div class='wrapper_news'>"+ news + "</div></div>");
+			$("#hit"+(i+1) +" .content").html("<h1>"+ query +"</h1><div class='wrapper_news'>"+ news + "</div>");
 		}
 		return 1;
 	});
