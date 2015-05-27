@@ -2,6 +2,11 @@
 
 * {
     font-family: 'Open Sans', sans-serif;
+    margin: 0px;
+    padding: 0px;
+}
+a {
+    text-decoration: none;
 }
 
 /* Navigation */
@@ -11,13 +16,30 @@
     left: 0px;
     width: 100%;
     background-color: #F8F8F8;
-    border-color: #E7E7E7;
+    border: 1px solid #E7E7E7;
+    height: 42px;
 }
 #nav .wrapper {
     padding: 10px;
 }
 #nav h1,
+#nav span,
 #nav a {
     font-family: 'Playfair Display SC', serif;
     color: #5E5E5E;
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: normal;
+}
+
+/* content */
+#content {
+    padding: 50px 10px 10px 10px;
+}
+#content h1 {
+    font-family: 'Playfair Display SC', serif;
+    color: #333;
+    font-size: 24px;
+    line-height: 26px;
+    font-weight: normal;
 }
