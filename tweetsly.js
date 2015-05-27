@@ -10,8 +10,9 @@ $(document).ready(function() {
 			$(this).find(".wrapper_news").addClass("active");
 		}
 	});
+	
 	$("#page, #hit").click(function() {
-		$(this).removeClass("active");
+		$(".wrapper_news").removeClass("active");
 	});
 });
 
