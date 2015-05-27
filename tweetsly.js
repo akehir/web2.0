@@ -11,7 +11,7 @@ $(document).ready(function() {
 		}
 	});
 	
-	$("#page, #hit").click(function() {
+	$("#page").click(function() {
 		$(".wrapper_news").removeClass("active");
 	});
 });
