@@ -10,7 +10,7 @@ $(document).ready(function() {
 			$(this).find(".wrapper_news").addClass("active");
 		}
 	});
-	$("body, #hit").click(function() {
+	$("#page, #hit").click(function() {
 		$(this).removeClass("active");
 	});
 });
@@ -70,9 +70,8 @@ function getNews(woeid, count){
 					try {
 						feedzillaHTML += "<img src='" + news[i].enclosures[0].uri + "' />";
 					} catch (err) { }
-					feedzillaHTML += "<a href='" + news[i].url + "' target='_blank'>";
-					feedzillaHTML += "<p>" + news[i].title + " <span class='date'>" + news[i].publish_date + "</span></p>";
-					feedzillaHTML += "</a>";
+					feedzillaHTML += "<p><a href='" + news[i].url + "' target='_blank'>" + news[i].title + "</a>"
+					feedzillaHTML += "<span class='date'>" + news[i].publish_date + "</span></p>";
 					feedzillaHTML += "<div class='clear'></div></div>";
 				}
 				if(news.length > 0) {
