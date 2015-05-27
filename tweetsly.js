@@ -1,14 +1,13 @@
 $(document).ready(function() {
 	tweetsly(1);
-	
-	
-	$("#page").click(function() {
-		$(".wrapper_news").removeClass("active");
-	});
-
+		
 	$(".hit").click(function() {
 		$(".wrapper_news").removeClass("active");
 		$(this).find(".wrapper_news").addClass("active");
+		
+		$("#page").click(function() {
+			$(this).find(".wrapper_news").removeClass("active");
+		});
 	});
 	
 });
