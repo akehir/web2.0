@@ -61,7 +61,7 @@ function getNews(woeid, count){
 			if(json.articles) {
 				var news = json.articles;
 				for (var i = 0; i < news.length; i++) {
-					feedzillaHTML += "<div class='news'>";
+					feedzillaHTML += "<div class='news source_"+ news[i].source.replace(/\ /g,"") +"'>";
 					try {
 						feedzillaHTML += "<img src='" + news[i].enclosures[0].uri + "' />";
 					} catch (err) { }
