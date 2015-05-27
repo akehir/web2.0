@@ -75,7 +75,7 @@ if (empty($_GET["woeid"])) {
 	}
 	
 	// move files to ./tweetsly
-	if( $counter_200 > 0){
+	if( $counter_200 >= 3){
 		rename("./tmp/tweetsly-$woeid.json", "./tweetsly/tweetsly-$woeid.json");
 		for($i = 0; $i < count($matches[1])-1; $i++){
 			rename("./tmp/tweetsly-$woeid-$i.json", "./tweetsly/tweetsly-$woeid-$i.json");
