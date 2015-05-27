@@ -1,0 +1,23 @@
+@import url(http://fonts.googleapis.com/css?family=Playfair+Display+SC|Open+Sans);
+
+* {
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* Navigation */
+#nav {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    background-color: #F8F8F8;
+    border-color: #E7E7E7;
+}
+#nav .wrapper {
+    padding: 10px;
+}
+#nav h1,
+#nav a {
+    font-family: 'Playfair Display SC', serif;
+    color: #5E5E5E;
+}

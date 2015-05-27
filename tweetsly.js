@@ -4,15 +4,14 @@ $(document).ready(function() {
 
 function tweetsly(woeid){
 	if(woeid == 1){
-		$(".page-header").html("Tweetsly - World Wide");
+		$("#nav .path").html(" > World Wide");
 	}else if(woeid == 23424977){
-		$(".page-header").html("Tweetsly - USA");
+		$("#nav .path").html(" > USA");
 	}
 
 	for(var i = 0; i < 10; i++){
 		$("#hit"+(i+1)).html("");
-		$("#hit"+(i+1)).addClass("empty-news");
-		$("#container"+(i+1)).addClass("empty-news");
+		$("#hit"+(i+1)).addClass("empty");
 	}
 
 	getTweets(woeid);
@@ -29,7 +28,7 @@ function getTweets(woeid){
 			query = trends[i].name;
 
 			news = getNews(woeid, i);
-			$("#hit"+(i+1)).html("<div class=''><h1>"+ query +"</h1></div><div class=''>"+ news + "</div><div class=''></div>");
+			$("#hit"+(i+1)).html("<h1>"+ query +"</h1><div class='wrapper'>"+ news + "</div>");
 		}
 		return 1;
 	});
@@ -45,39 +44,20 @@ function getNews(woeid, count){
 			if(json.articles) {
 				var news = json.articles;
 				for (var i = 0; i < news.length; i++) {
-					feedzillaHTML += "<div class='row'>";
-					feedzillaHTML += "<div class='news news" + (i + 1) + "'>";
-					feedzillaHTML += "<a href='" + news[i].url + "' target='_blank'>";
+					feedzillaHTML += "<div class='news'>";
 					try {
-						feedzillaHTML += "<div class='newspicture col-lg-4 col-xs-4'><img class='img-responsive img-news' src='" + news[i].enclosures[0].uri + "' />";
-						// make column for news entry 8, as image is 4
-						feedzillaHTML += "</div><div class='newsentry col-lg-8 col-xs-8'>";
-					} catch (err) {
-						// make col for news 12, if with news, make col for news 8
-						feedzillaHTML += "<div class='newsentry col-lg-12 col-xs-12'>";
-					}
-					feedzillaHTML += "<p>" + news[i].title + " | " + news[i].publish_date + "</p>";
-
-					feedzillaHTML += "</div></a></div></div>";
-					if (i < (news.length - 1)) {
-						feedzillaHTML += "<div class='row'><hr></div>" // add horizontal line as divider to all but the last image.
-					}
+						feedzillaHTML += "<img src='" + news[i].enclosures[0].uri + "' />";
+					} catch (err) { }
+					feedzillaHTML += "<a href='" + news[i].url + "' target='_blank'>";
+					feedzillaHTML += "<p>" + news[i].title + " <span class='date'>" + news[i].publish_date + "</span></p>";
+					feedzillaHTML += "</a>";
+					feedzillaHTML += "</div>";
 				}
 				if(news.length > 0) {
-					$("#container" + (count + 1)).removeClass("empty-news");
-					$("#hit" + (count + 1)).removeClass("empty-news");
-					$("#hit"+(count+1)).removeClass("greyed-news");
-					$("#container"+(count+1)).removeClass("greyed-news");
-				}else{
-					$("#container" + (count + 1)).removeClass("empty-news");
-					$("#hit" + (count + 1)).removeClass("empty-news");
-					$("#hit"+(count+1)).addClass("greyed-news");
-					$("#container"+(count+1)).addClass("greyed-news");
+					$("#hit" + (count + 1)).removeClass("empty");
+				}
 			}
-			}else{
-				$("#hit"+(count+1)).addClass("empty-news");
-				$("#container"+(count+1)).addClass("empty-news");
-			}
+			
 		} catch(err) {
 			console.log("error in feedzilla query", count);
 		}
