@@ -53,7 +53,7 @@ function getNews(woeid, count){
 					feedzillaHTML += "<a href='" + news[i].url + "' target='_blank'>";
 					feedzillaHTML += "<p>" + news[i].title + " <span class='date'>" + news[i].publish_date + "</span></p>";
 					feedzillaHTML += "</a>";
-					feedzillaHTML += "</div>";
+					feedzillaHTML += "<div class='clear'></div></div>";
 				}
 				if(news.length > 0) {
 					$("#hit" + (count + 1)).removeClass("empty");
