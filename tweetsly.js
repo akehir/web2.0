@@ -3,10 +3,14 @@ $(document).ready(function() {
 	
 
 	$(".hit").click(function() {
-		$(".wrapper_news").removeClass("active");
-		$(this).find(".wrapper_news").addClass("active");
+		if ($(this).find(".wrapper_news").hasClass("active")) {
+			$(".wrapper_news").removeClass("active");
+		}else{
+			$(".wrapper_news").removeClass("active");
+			$(this).find(".wrapper_news").addClass("active");
+		}
 	});
-	$(".wrapper_news").click(function() {
+	$("#page, #hit").click(function() {
 		$(this).removeClass("active");
 	});
 });
