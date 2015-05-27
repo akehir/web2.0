@@ -3,18 +3,17 @@ $(document).ready(function() {
 });
 
 function tweetsly(woeid){
-	$("#nav .nav .selected").removeClass().addClass("selected");
 	$("#nav .nav li").removeClass("hidden");
 	
 	if(woeid == 1){
 		$("#nav .path").html(" > World Wide");
 		$("#nav .nav .woeid_23424977").addClass("hidden");
-		$("#nav .nav .selected").html("World Wide").addClass("woeid_1").removeClass("woeid_23424977");
+		$("#nav .nav .selected").html("World Wide");
 		
 	}else if(woeid == 23424977){
 		$("#nav .path").html(" > USA");
 		$("#nav .nav .woeid_1").addClass("hidden");
-		$("#nav .nav .selected").html("USA").addClass("woeid_23424977").removeClass("woeid_1");
+		$("#nav .nav .selected").html("USA");
 	}
 
 	for(var i = 0; i < 10; i++){
