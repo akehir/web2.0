@@ -1,5 +1,14 @@
 $(document).ready(function() {
 	tweetsly(1);
+	
+
+	$(".hit").click(function() {
+		$(".wrapper_news").removeClass("active");
+		$(this).find(".wrapper_news").addClass("active");
+	});
+	$(".wrapper_news").click(function() {
+		$(this).removeClass("active");
+	});
 });
 
 function tweetsly(woeid){
@@ -75,11 +84,3 @@ function getNews(woeid, count){
 	return feedzillaHTML;
 }
 
-
-$(".hit").click(function() {
-	$(".wrapper_news").removeClass("active");
-	$(this).find(".wrapper_news").addClass("active");
-});
-$(".wrapper_news").click(function() {
-	$(this).removeClass("active");
-});
