@@ -11,7 +11,7 @@ function tweetsly(woeid){
 
 	for(var i = 0; i < 10; i++){
 		$("#hit"+(i+1)).html("");
-		if(!$("#hit"+(i+1)).hasClass("empty")){
+		if(!$("#hit"+(i+1)+" .content").hasClass("empty")){
 			$("#hit"+(i+1)).addClass("empty");
 		}
 	}
