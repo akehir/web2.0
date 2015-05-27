@@ -74,3 +74,12 @@ function getNews(woeid, count){
 	$.ajaxSetup( { "async": true} );
 	return feedzillaHTML;
 }
+
+
+$(".hit").click(function() {
+	$(".wrapper_news").removeClass("active");
+	$(this).find(".wrapper_news").addClass("active");
+});
+$(".wrapper_news").click(function() {
+	$(this).removeClass("active");
+});
