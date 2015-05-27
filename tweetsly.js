@@ -5,8 +5,11 @@ $(document).ready(function() {
 function tweetsly(woeid){
 	if(woeid == 1){
 		$("#nav .path").html(" > World Wide");
+		$("#nav .nav .selected").html("World Wide").addClass("woeid_1").removeClass("woeid_23424977");
+		
 	}else if(woeid == 23424977){
 		$("#nav .path").html(" > USA");
+		$("#nav .nav .selected").html("USA").addClass("woeid_23424977").removeClass("woeid_1");
 	}
 
 	for(var i = 0; i < 10; i++){
