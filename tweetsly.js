@@ -7,7 +7,8 @@ $(document).ready(function() {
 	.mouseout(function() {
 		$(this).find(".wrapper_news").removeClass("active");
 	});
-	
+
+	$.ajaxSetup({ cache: false });	
 });
 
 function tweetsly(woeid){
